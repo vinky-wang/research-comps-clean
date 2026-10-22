@@ -1,0 +1,306 @@
+
+ control.mode.Rd 
+_C_o_n_t_r_o_l _v_a_r_i_a_b_l_e_s _i_n _c_o_n_t_r_o_l._m_o_d_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Control variables in ‘control.mode’ for use in ‘inla’
+
+_U_s_a_g_e:
+
+     inla.set.control.mode.default(...)
+     control.mode(fixed, restart, result, theta, x)
+     
+_A_r_g_u_m_e_n_t_s:
+
+     ...: Possible arguments
+
+  result: Prevous result from inla(). Use the theta- and x-mode from
+          this run.
+
+   theta: The theta-mode/initial values for theta. This option has
+          preference over result$mode$theta.
+
+       x: The x-mode/intitial values for x. This option has preference
+          over result$mode$x.
+
+ restart: A boolean variable; should we restart the optimisation from
+          this configuration or fix the mode at this configuration?
+          (Default FALSE.)
+
+   fixed: A boolean variable. If TRUE then treat all thetas as known
+          and fixed, and if FALSE then treat all thetas as unknown and
+          random (default).
+
+_V_a_l_u_e:
+
+     The function ‘control.mode’ is used to TAB-complete arguments and
+     returns a list of given arguments. The function
+     ‘inla.set.control.mode.default’ returns a list with all the
+     default values of all parameters within this control statement.
+
+_S_e_e _A_l_s_o:
+
+     ‘control.update’, ‘control.lincomb’, ‘control.group’,
+     ‘control.mix’, ‘control.pom’, ‘control.link’, ‘control.expert’,
+     ‘control.compute’, ‘control.lp.scale’, ‘control.pardiso.default’,
+     ‘control.bgev.default’, ‘control.family’, ‘control.fixed’,
+     ‘control.inla’, ‘control.predictor’, ‘control.mode’,
+     ‘control.hazard’, ‘inla’
+
+
+ control.inla.Rd 
+_C_o_n_t_r_o_l _v_a_r_i_a_b_l_e_s _i_n _c_o_n_t_r_o_l._i_n_l_a
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Control variables in ‘control.inla’ for use in ‘inla’
+
+_U_s_a_g_e:
+
+     inla.set.control.inla.default(...)
+     control.inla(adapt.hessian.max.trials, adapt.hessian.mode, adapt.hessian.scale, adaptive.max, adjust.weights, b.strategy, cmin, compute.initial.values, constr.marginal.diagonal, control.vb, cpo.diff, cutoff, diagonal, diff.logdens, dz, fast, force.diagonal, global.node.degree, global.node.factor, h, huge, improved.simplified.laplace, int.design, int.strategy, interpolator, lincomb.derived.correlation.matrix, linear.correction, mode.known, npoints, num.gradient, num.hessian, numint.abserr, numint.maxfeval, numint.relerr, optimise.strategy, optimiser, parallel.linesearch, print.joint.hyper, reordering, restart, skip.configurations, stencil, step.factor, step.len, strategy, stupid.search, stupid.search.factor, stupid.search.max.iter, tolerance, tolerance.f, tolerance.g, tolerance.step, tolerance.x, use.directions, verbose)
+     
+_A_r_g_u_m_e_n_t_s:
+
+     ...: Possible arguments
+
+strategy: Character The strategy to use for the approximations; one of
+          'auto' (default), 'gaussian', 'simplified.laplace', 'laplace'
+          or 'adaptive'.
+
+int.strategy: Character The integration strategy to use; one of 'auto'
+          (default), 'ccd', 'grid', 'eb' (empirical bayes), 'user' or
+          'user.std'.  For the experimental mode, then 'grid' equal
+          'ccd' for more than two hyperparameters.
+
+int.design: Matrix Matrix of user-defined integration points and
+          weights. Each row consists theta values and the integration
+          weight.  (EXPERIMENTAL!).
+
+interpolator: Character The interpolator used to compute the marginals
+          for the hyperparameters. One of 'auto', 'nearest',
+          'quadratic', 'weighted.distance', 'ccd', 'ccdintegrate',
+          'gridsum', 'gaussian'. Default is 'auto'.
+
+    fast: Logical If TRUE, then replace conditional modes in the
+          Laplace approximation with conditional expectation (default
+          TRUE).
+
+linear.correction: Logical Default TRUE for the 'strategy = laplace'
+          option.
+
+       h: Numerical The step-length for the gradient calculations for
+          the hyperparameters. Default 0.005.
+
+      dz: Numerical The step-length in the standarised scale for the
+          integration of the hyperparameters. Default 0.75.
+
+diff.logdens: Numerical The difference of the log.density for the
+          hyperpameters to stop numerical integration using
+          int.strategy='grid'. Default 6.
+
+print.joint.hyper: Logical If TRUE, the store also the joint
+          distribution of the hyperparameters (without any costs).
+          Default TRUE.
+
+force.diagonal: Logical If TRUE, then force the Hessian to be diagonal.
+          (Default ‘FALSE’)
+
+skip.configurations: Logical Skip configurations if the values at the
+          main axis are to small. (Default ‘TRUE’)
+
+mode.known: Logical If TRUE then no optimisation is done. (Default
+          FALSE.)
+
+adjust.weights: Logical If TRUE then just more accurate integration
+          weights. (Default TRUE.)
+
+tolerance: Numerical The tolerance for the optimisation of the
+          hyperparameters. If set, this is the default value for for
+          'tolerance.f/2', 'tolerance.g' and 'tolerance.x'; see below.
+
+tolerance.f: Numerical The tolerance for the absolute change in the log
+          posterior in the optimisation of the hyperparameters.
+
+tolerance.g: Numerical The tolerance for the absolute change in the
+          gradient of the log posterior in the optimisation of the
+          hyperparameters.
+
+tolerance.x: Numerical The tolerance for the change in the
+          hyperparameters (root-mean-square) in the optimisation of the
+          hyperparameters.
+
+tolerance.step: Numerical The tolerance for the change in
+          root-mean_squre in the inner Newton-like optimisation of the
+          latent field.
+
+ restart: Numerical To improve the optimisation, the optimiser is
+          restarted at the found optimum 'restart' number of times.
+
+optimiser: Character The optimiser to use; one of 'gsl' or 'default'.
+
+ verbose: Logical Run in verbose mode? (Default FALSE)
+
+reordering: Character Type of reordering to use. (EXPERT OPTION; one of
+          "AUTO", "DEFAULT", "IDENTITY", "REVERSEIDENTITY", "BAND",
+          "METIS", "GENMMD", "AMD", "MD", "MMD", "AMDBAR", "AMDC",
+          "AMDBARC", or the output from ‘inla.qreordering’. Default is
+          'auto'.)
+
+cpo.diff: Numerical Threshold to define when the cpo-calculations are
+          inaccurate. (EXPERT OPTION.)
+
+ npoints: Numerical Number of points to use in the 'stratey=laplace'
+          approximation (default 9)
+
+  cutoff: Numerical The cutoff used in the 'stratey=laplace'
+          approximation. (Smaller value is more accurate and more
+          slow.) (default 1e-4)
+
+adapt.hessian.mode: Logical Should optimisation be continued if the
+          Hessian estimate is void? (Default TRUE)
+
+adapt.hessian.max.trials: Numerical Number of steps in the adaptive
+          Hessian optimisation
+
+adapt.hessian.scale: Numerical The scaling of the 'h' after each trial.
+
+adaptive.max: Selecting ‘strategy="adaptive"’ will chose the default
+          strategy for all fixed effects and model components with
+          length less or equal to ‘adaptive.max’, for others, the
+          gaussian strategy will be applied.
+
+    huge: Logical If TRUE then try to do some of the internal
+          parallisations differently. Hopefully this will be of
+          benefite for 'HUGE' models.  (Default FALSE.) [THIS OPTION IS
+          OBSOLETE AND NOT USED!]
+
+step.len: Numerical The step-length used to compute numerical
+          derivaties of the log-likelihood (0 means ‘default’ which
+          depends on ‘stencil’)
+
+ stencil: Numerical Number of points in the stencil used to compute the
+          numerical derivaties of the log-likelihood (5, 7 or 9).
+          (default 5)
+
+lincomb.derived.correlation.matrix: Logical If TRUE compute also the
+          correlations for the derived linear combinations, if FALSE do
+          not (Default FALSE)
+
+diagonal: Numerical Expert use only! Add a this value on the diagonal
+          of the joint precision matrix. (default 0.0)
+
+numint.maxfeval: Numerical Maximum number of function evaluations in
+          the the numerical integration for the hyperparameters.
+          (Default 100000.)
+
+numint.relerr: Numerical Relative error requirement in the the
+          numerical integration for the hyperparameters. (Default 1e-5)
+
+numint.abserr: Numerical Absolute error requirement in the the
+          numerical integration for the hyperparameters. (Default 1e-6)
+
+    cmin: Numerical The minimum value for the negative Hessian from the
+          likelihood. Increasing this value will stabalise the
+          optimisation but can introduce bias. (Default -Inf)
+
+b.strategy: Character If ‘cmin’ is used, either keep the linear term
+          (with ‘b.strategy="keep"’) or skip the contribution by
+          setting the linear term to zero (‘b.strategy="skip"’). The
+          default value is ‘"skip"’
+
+step.factor: Numerical The step factor in the Newton-Raphson algorithm
+          saying how large step to take (Default 1.0) YES! setting this
+          to a negative values means = 1, EXCEPT the first time (for
+          each thread) where |step.factor| is used.
+
+global.node.factor: Numerical The factor which defines the degree
+          required (how many neighbors), as a fraction of ‘n-1’, that
+          is required to be classified as a global node and numbered
+          last (whatever the reordering routine says). Here, ‘n’, is
+          the size of the graph. (Disabled if larger than 1, default 2)
+
+global.node.degree: Numerical The degree required (number of neighbors)
+          to be classified as a global node and numbered last (whatever
+          the reordering routine says).  (default
+          ‘.Machine$integer.max’)
+
+stupid.search: Logical Enable or disable the stupid-search-algorithm,
+          if the Hessian calculations reveals that the mode is not
+          found.  (Default ‘TRUE’.)
+
+stupid.search.max.iter: Numerical Maximum number of iterations allowed
+          for the stupid-search-algorithm. (default 1000)
+
+stupid.search.factor: Numerical Factor (>=1) to increase the
+          step-length with after each new interation. (default 1.05)
+
+control.vb: List of arguments for various VB corrections.  ‘enable’:
+          Logical/Character Use this feature? If ‘"auto"’ this will be
+          selected automatically.  ‘strategy’: Charactor What to
+          correct, either "mean" or "variance".  ‘verbose’: Logical Be
+          verbose or not.  ‘iter.max’: Integer Maximum number of
+          interations.  ‘emergency’: Numeric If the standarized
+          correction for the mean is larger than this value, then call
+          the vb.correction off and issue a warning ‘f.enable.limit’:
+          Vector of length 2. The size limit to correct for a ‘f()’.
+          First element is for ‘strategy="mean"’.  Second element is
+          for ‘strategy="mean"’.  ‘hesssian.update’: How many times the
+          Hessian is updated for each correction (‘strategy="variance"’
+          only).  ‘hesssian.strategy’: Select strategy for computing
+          the Hessian matrix for ‘strategy="variance"’, one of
+          ‘"full"’, ‘"diagonal"’, ‘"partial"’ and ‘"default"’.
+
+num.gradient: Character Set the numerical scheme to compute the
+          gradient, one of ‘"forward"’ or ‘"central"’ (default).
+
+num.hessian: Character Set the numerical scheme to compute the Hessian,
+          one of ‘"forward"’ or ‘"central"’ (default).
+
+optimise.strategy: Character THIS OPTION IS EXPERIMENTAL. Chose the
+          optimiser strategy, one of ‘"plain"’ or ‘"smart"’ (default)
+
+use.directions: THIS OPTION IS EXPERIMENTAL. Unless ‘FALSE’ or ‘NULL’,
+          use directions for computing gradient and Hessian,
+          initialised with ‘use.directions’ if a matrix.
+
+constr.marginal.diagonal: Add stability to ‘AQ^-1A^T’ by adding a small
+          diagonal term. (default ‘epsilon^0.5’)
+
+improved.simplified.laplace: If ‘TRUE’ use an experimental improved
+          variant, otherwise, use the standard one.
+
+parallel.linesearch: Use serial (default) or parallel line-search
+          (highly experimental for the moment)
+
+compute.initial.values: Compute initial values for the latent field or
+          not.  (experimental-mode only)
+
+_V_a_l_u_e:
+
+     The function ‘control.inla’ is used to TAB-complete arguments and
+     returns a list of given arguments. The function
+     ‘inla.set.control.inla.default’ returns a list with all the
+     default values of all parameters within this control statement.
+
+_S_e_e _A_l_s_o:
+
+     ‘control.update’, ‘control.lincomb’, ‘control.group’,
+     ‘control.mix’, ‘control.pom’, ‘control.link’, ‘control.expert’,
+     ‘control.compute’, ‘control.lp.scale’, ‘control.pardiso.default’,
+     ‘control.bgev.default’, ‘control.family’, ‘control.fixed’,
+     ‘control.inla’, ‘control.predictor’, ‘control.mode’,
+     ‘control.hazard’, ‘inla’
+
+The legacy packages maptools, rgdal, and rgeos, underpinning this package
+will retire shortly. Please refer to R-spatial evolution reports on
+https://r-spatial.org/r/2023/05/15/evolution4.html for details.
+This package is now running under evolution status 0 
+function (...) 
+{
+    list(result = NULL, theta = NULL, x = NULL, restart = FALSE, 
+        fixed = FALSE)
+}
+<bytecode: 0x14109f550>
+<environment: namespace:INLA>

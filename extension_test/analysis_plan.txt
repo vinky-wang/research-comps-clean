@@ -1,0 +1,52 @@
+PRESPECIFIED TEST AND ANALYSIS PLAN
+
+Purpose
+Verify execution, output preservation, numerical diagnostics and practical stability
+One replicate cannot establish bias, coverage, power, or superiority of a model
+The thresholds below are practical screening tolerances, not formal guarantees
+
+Pilot acceptance review
+All 29 requested fits must be accounted for, including failures
+Inspect mode_status, Hessian adjustments, warnings, invalid scores, invalid parameter
+summaries, coherence flags, runtime and preserved logs
+A fit being saved or a process exiting successfully does not certify convergence
+A Hessian adjustment alone is a review flag; inspect severity and mesh comparisons
+Do not launch the full study with unexplained failed or invalid primary outcomes
+
+Numerical screens (set before examining results)
+Finer-mesh posterior-mean RMS change <= .05 on the unit-SD generating field scale
+Absolute finer-mesh change in global latent joint-draw CRPS <= .01
+Absolute parameter mean shift <= .25 of the pilot posterior SD, where finite
+Absolute change between 1000- and 5000-draw latent CRPS <= .01
+Mesh CRPS differences include Monte Carlo error; interpret with the draw check
+A screen failure warrants investigation and is not evidence that one model is inferior
+
+Study reporting
+Primary predictive comparisons: latent-surface joint-draw CRPS and MSE
+Secondary: MAE, the implemented WD_paper statistic, coverage and interval scores
+Report the Gaussian CRPS approximation separately from joint-draw CRPS
+Use paired PSmelding-minus-Melding differences within the same replicate and condition
+Negative paired differences favour PSmelding for error scores; coverage needs its own interpretation
+Report replicate counts and Monte Carlo SE = SD of replicate values / sqrt(n)
+Use SD of paired differences for uncertainty in a model comparison
+
+Failures and flags
+Report attempted, fitted, scored, invalid and flagged counts by model and condition
+Do not impute unavailable estimates or silently remove failed/flagged replicates
+Primary summaries retain valid flagged values, matching the current engine
+If flags are frequent, show a separately labelled sensitivity summary with exclusions
+Any engineering retry must be documented; never select a convenient successful seed
+
+Parameter recovery
+Summarize mu, gamma, point/areal noise variance, rho, sigma2 and theta where applicable
+Use saved truths, posterior summaries, mean errors, covered indicators and interval scores
+For unequal left/right gamma, constant fitted gamma has no scalar generating target:
+report its posterior descriptively; do not score against the average coefficient
+For delta>0, gamma recovery describes a deliberately misspecified fitted model
+Summarize regional predictive diagnostics separately for x<.5 and x>=.5
+
+Monte Carlo limits
+At 100 replicates, coverage near .95 has SE sqrt(.95*.05/100)=.0218
+Do not interpret small coverage differences as established with this replication count
+Repeated shared baselines are paired controls, not independent extra replicates
+Freeze settings and save the source snapshot before any production run

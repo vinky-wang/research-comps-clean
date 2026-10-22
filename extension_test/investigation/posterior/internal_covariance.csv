@@ -1,0 +1,131 @@
+"phase","job_id","parameter_1","parameter_2","covariance","correlation"
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.0707285635214827,1
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.00215032365074374,-0.0240845864232266
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations","Theta1 for s",-0.0219313041405886,-0.424548267061158
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations","Theta2 for s",0.0204951057784305,0.311114781960269
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.00215032365074374,-0.0240845864232266
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.112702730834211,1
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta1 for s",-0.00278156480508715,-0.042656183565041
+"pilot","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta2 for s",-0.000295789325061287,-0.00355699436920718
+"pilot","strength_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations",-0.0219313041405886,-0.424548267061158
+"pilot","strength_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations[2]",-0.00278156480508715,-0.042656183565041
+"pilot","strength_case_0003_Melding","Theta1 for s","Theta1 for s",0.0377294029365432,1
+"pilot","strength_case_0003_Melding","Theta1 for s","Theta2 for s",-0.040766736967713,-0.847293521766731
+"pilot","strength_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations",0.0204951057784305,0.311114781960269
+"pilot","strength_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations[2]",-0.000295789325061287,-0.00355699436920718
+"pilot","strength_case_0003_Melding","Theta2 for s","Theta1 for s",-0.040766736967713,-0.847293521766731
+"pilot","strength_case_0003_Melding","Theta2 for s","Theta2 for s",0.0613570114608144,1
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.0720602740480564,1
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.00148664772159386,-0.0170493404287914
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations","Theta1 for s",-0.0208567503425956,-0.424267088606727
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations","Theta2 for s",0.0193428294741378,0.305997898420129
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.00148664772159386,-0.0170493404287914
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.105512779745919,1
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta1 for s",-0.002176458229504,-0.0365879822879259
+"finer_mesh","strength_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta2 for s",-0.000159921101514528,-0.00209073810937102
+"finer_mesh","strength_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations",-0.0208567503425956,-0.424267088606727
+"finer_mesh","strength_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations[2]",-0.002176458229504,-0.0365879822879259
+"finer_mesh","strength_case_0003_Melding","Theta1 for s","Theta1 for s",0.0335365735284388,1
+"finer_mesh","strength_case_0003_Melding","Theta1 for s","Theta2 for s",-0.0359837507460781,-0.834436861863424
+"finer_mesh","strength_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations",0.0193428294741378,0.305997898420129
+"finer_mesh","strength_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations[2]",-0.000159921101514528,-0.00209073810937102
+"finer_mesh","strength_case_0003_Melding","Theta2 for s","Theta1 for s",-0.0359837507460781,-0.834436861863424
+"finer_mesh","strength_case_0003_Melding","Theta2 for s","Theta2 for s",0.0554507225033249,1
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.0724797944680915,1
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.000900068821697174,-0.0116308921826563
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations","Theta1 for s",-0.0135347516822818,-0.301873950994069
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations","Theta2 for s",0.0100012448032929,0.204262672045555
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.000900068821697174,-0.0116308921826563
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.082624419869817,1
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta1 for s",-0.00244349704875713,-0.0510436157166061
+"pilot","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta2 for s",-0.000425827758628513,-0.00814560196741682
+"pilot","clustering_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations",-0.0135347516822818,-0.301873950994069
+"pilot","clustering_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations[2]",-0.00244349704875713,-0.0510436157166061
+"pilot","clustering_case_0003_Melding","Theta1 for s","Theta1 for s",0.0277352671636859,1
+"pilot","clustering_case_0003_Melding","Theta1 for s","Theta2 for s",-0.0253360870824864,-0.836501634443256
+"pilot","clustering_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations",0.0100012448032929,0.204262672045555
+"pilot","clustering_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations[2]",-0.000425827758628513,-0.00814560196741682
+"pilot","clustering_case_0003_Melding","Theta2 for s","Theta1 for s",-0.0253360870824864,-0.836501634443256
+"pilot","clustering_case_0003_Melding","Theta2 for s","Theta2 for s",0.0330760123017209,1
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.0732413649588059,1
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.000559133094042948,-0.00735763413442872
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations","Theta1 for s",-0.011040752550841,-0.273340572120733
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations","Theta2 for s",0.00828327218332963,0.179820504976249
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.000559133094042948,-0.00735763413442872
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.0788492542495586,1
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta1 for s",-0.00215573474450795,-0.0514375368514405
+"finer_mesh","clustering_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta2 for s",-0.000298331932506754,-0.00624189475413875
+"finer_mesh","clustering_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations",-0.011040752550841,-0.273340572120733
+"finer_mesh","clustering_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations[2]",-0.00215573474450795,-0.0514375368514405
+"finer_mesh","clustering_case_0003_Melding","Theta1 for s","Theta1 for s",0.0222757700086057,1
+"finer_mesh","clustering_case_0003_Melding","Theta1 for s","Theta2 for s",-0.0205063525213927,-0.807211892658889
+"finer_mesh","clustering_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations",0.00828327218332963,0.179820504976249
+"finer_mesh","clustering_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations[2]",-0.000298331932506754,-0.00624189475413875
+"finer_mesh","clustering_case_0003_Melding","Theta2 for s","Theta1 for s",-0.0205063525213927,-0.807211892658889
+"finer_mesh","clustering_case_0003_Melding","Theta2 for s","Theta2 for s",0.0289713684387655,1
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.050613523914263,1
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.00716550099632654,-0.0553045939184566
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Theta1 for i",-0.0121529836419254,-0.361845197979809
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Theta2 for i",0.0125168427454039,0.242359920640701
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Beta_intern for j",-0.00289039647522441,-0.109795481801845
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.00716550099632654,-0.0553045939184566
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.331668426325859,1
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Theta1 for i",0.00203328545550348,0.0236493646096353
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Theta2 for i",-0.0242509173988039,-0.183432126458499
+"pilot","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Beta_intern for j",-0.00300432940159942,-0.0445816174178798
+"pilot","strength_case_0003_PSmelding","Theta1 for i","Log precision for the Gaussian observations",-0.0121529836419254,-0.361845197979809
+"pilot","strength_case_0003_PSmelding","Theta1 for i","Log precision for the Gaussian observations[2]",0.00203328545550348,0.0236493646096353
+"pilot","strength_case_0003_PSmelding","Theta1 for i","Theta1 for i",0.0222871031959976,1
+"pilot","strength_case_0003_PSmelding","Theta1 for i","Theta2 for i",-0.0261009844558686,-0.76160426850306
+"pilot","strength_case_0003_PSmelding","Theta1 for i","Beta_intern for j",0.00328869793323077,0.18825976450374
+"pilot","strength_case_0003_PSmelding","Theta2 for i","Log precision for the Gaussian observations",0.0125168427454039,0.242359920640701
+"pilot","strength_case_0003_PSmelding","Theta2 for i","Log precision for the Gaussian observations[2]",-0.0242509173988039,-0.183432126458499
+"pilot","strength_case_0003_PSmelding","Theta2 for i","Theta1 for i",-0.0261009844558686,-0.76160426850306
+"pilot","strength_case_0003_PSmelding","Theta2 for i","Theta2 for i",0.0526988833782061,1
+"pilot","strength_case_0003_PSmelding","Theta2 for i","Beta_intern for j",-0.00120038144107615,-0.0446867636983692
+"pilot","strength_case_0003_PSmelding","Beta_intern for j","Log precision for the Gaussian observations",-0.00289039647522441,-0.109795481801845
+"pilot","strength_case_0003_PSmelding","Beta_intern for j","Log precision for the Gaussian observations[2]",-0.00300432940159942,-0.0445816174178798
+"pilot","strength_case_0003_PSmelding","Beta_intern for j","Theta1 for i",0.00328869793323077,0.18825976450374
+"pilot","strength_case_0003_PSmelding","Beta_intern for j","Theta2 for i",-0.00120038144107615,-0.0446867636983692
+"pilot","strength_case_0003_PSmelding","Beta_intern for j","Beta_intern for j",0.0136923920166359,1
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.0516739844736244,1
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.0056409713460147,-0.0258688446990478
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Theta1 for i",-0.0106803599426325,-0.33605404708415
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Theta2 for i",0.00986332816419051,0.209736348976185
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations","Beta_intern for j",-0.00319041164633963,-0.116215563274081
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.0056409713460147,-0.0258688446990478
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.920199027195515,1
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Theta1 for i",0.0323896316668995,0.241504006643277
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Theta2 for i",-0.0567235623446911,-0.285830657718021
+"finer_mesh","strength_case_0003_PSmelding","Log precision for the Gaussian observations[2]","Beta_intern for j",0.0178065092842152,0.153706222796682
+"finer_mesh","strength_case_0003_PSmelding","Theta1 for i","Log precision for the Gaussian observations",-0.0106803599426325,-0.33605404708415
+"finer_mesh","strength_case_0003_PSmelding","Theta1 for i","Log precision for the Gaussian observations[2]",0.0323896316668995,0.241504006643277
+"finer_mesh","strength_case_0003_PSmelding","Theta1 for i","Theta1 for i",0.0195470654986767,1
+"finer_mesh","strength_case_0003_PSmelding","Theta1 for i","Theta2 for i",-0.0227777505324707,-0.787510302436927
+"finer_mesh","strength_case_0003_PSmelding","Theta1 for i","Beta_intern for j",0.00469704962724136,0.278187690729775
+"finer_mesh","strength_case_0003_PSmelding","Theta2 for i","Log precision for the Gaussian observations",0.00986332816419051,0.209736348976185
+"finer_mesh","strength_case_0003_PSmelding","Theta2 for i","Log precision for the Gaussian observations[2]",-0.0567235623446911,-0.285830657718021
+"finer_mesh","strength_case_0003_PSmelding","Theta2 for i","Theta1 for i",-0.0227777505324707,-0.787510302436927
+"finer_mesh","strength_case_0003_PSmelding","Theta2 for i","Theta2 for i",0.0427984073460003,1
+"finer_mesh","strength_case_0003_PSmelding","Theta2 for i","Beta_intern for j",-0.00458027216926885,-0.183328939490756
+"finer_mesh","strength_case_0003_PSmelding","Beta_intern for j","Log precision for the Gaussian observations",-0.00319041164633963,-0.116215563274081
+"finer_mesh","strength_case_0003_PSmelding","Beta_intern for j","Log precision for the Gaussian observations[2]",0.0178065092842152,0.153706222796682
+"finer_mesh","strength_case_0003_PSmelding","Beta_intern for j","Theta1 for i",0.00469704962724136,0.278187690729775
+"finer_mesh","strength_case_0003_PSmelding","Beta_intern for j","Theta2 for i",-0.00458027216926885,-0.183328939490756
+"finer_mesh","strength_case_0003_PSmelding","Beta_intern for j","Beta_intern for j",0.0145845458667347,1
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations",0.0707299900342127,1
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations","Log precision for the Gaussian observations[2]",-0.00215032036148203,-0.0240840664110202
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations","Theta1 for s",-0.0219320719840468,-0.42455360912826
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations","Theta2 for s",0.0204957642908419,0.311121192027767
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations",-0.00215032036148203,-0.0240840664110202
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations[2]","Log precision for the Gaussian observations[2]",0.112704979802706,1
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta1 for s",-0.0027815598506408,-0.0426551554774125
+"pilot","areal_noise_case_0003_Melding","Log precision for the Gaussian observations[2]","Theta2 for s",-0.000295779373189507,-0.0035568340765133
+"pilot","areal_noise_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations",-0.0219320719840468,-0.42455360912826
+"pilot","areal_noise_case_0003_Melding","Theta1 for s","Log precision for the Gaussian observations[2]",-0.0027815598506408,-0.0426551554774125
+"pilot","areal_noise_case_0003_Melding","Theta1 for s","Theta1 for s",0.0377303343742564,1
+"pilot","areal_noise_case_0003_Melding","Theta1 for s","Theta2 for s",-0.0407675287346086,-0.847298297235315
+"pilot","areal_noise_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations",0.0204957642908419,0.311121192027767
+"pilot","areal_noise_case_0003_Melding","Theta2 for s","Log precision for the Gaussian observations[2]",-0.000295779373189507,-0.0035568340765133
+"pilot","areal_noise_case_0003_Melding","Theta2 for s","Theta1 for s",-0.0407675287346086,-0.847298297235315
+"pilot","areal_noise_case_0003_Melding","Theta2 for s","Theta2 for s",0.0613571884223588,1

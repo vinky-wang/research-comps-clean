@@ -1,0 +1,13 @@
+path,bytes,sha256
+/Users/vinky/research-comps-clean/R/fit_models.R,33884,a1fbb4129d7bd46248020b81cf6faca39d6437542acb3e8afbc8a85e072932fb
+/Users/vinky/research-comps-clean/R/config.R,19538,b09e3af9c4b1c899f7afddb7d1f027e078d86861e766c8e8396eae46328a1af3
+/Users/vinky/research-comps-clean/R/run_simulation.R,42314,49a9f4fd353fd560a1a90ec00fbc830e5efe61c5ff5189ff70acb773ee644868
+/Users/vinky/research-comps-clean/R/run_extension.R,3497,0f045371e658070a3068681fe3a1f66afff493dbed6b9ba216faa17a9b57eff6
+/Users/vinky/research-comps-clean/R/evaluate.R,53677,3413fed117ccce9d750a3c42aedbff528f75681af1c127bb9781ab8db528b646
+/Users/vinky/research-comps-clean/R/generate_data.R,13743,069aaebd8dee96e7cd4882ff1712e1c29708dbf05dae8b31ef6fdbf0bfba2648
+/Users/vinky/research-comps-clean/R/run_reproduction.R,1372,cf9e78930b83695def2b60c129d64689915e13b4943d207462ad495a1bb03678
+/Users/vinky/research-comps-clean/production_checks/check_laptop.R,4033,590a44a3187b11072c9bb655cae334117fbe77a45701842ea7bbfb9b0da58e29
+/Users/vinky/research-comps-clean/production_checks/laptop_1_check/laptop_check.rds,97916,4323239dd7e0b14bb5b0183d64241fe5aa4510aa0e7ce004a212779bf8ed195c
+/Users/vinky/research-comps/.r-lib/4.2-arm64/INLA/bin/mac.arm64/inla,14616177,18cf777645f1d9d59694e748bdfdfa0d3ce23ba8dd2eb06185a7fce2bbee38a1
+/Users/vinky/research-comps/.r-lib/4.2-arm64/INLA/bin/mac.arm64/inla.run,2240,b092f2c56c3c06f340806e369dacbc26b1e119a0c207e7ead33adf77711b27f9
+/Users/vinky/research-comps/.r-lib/4.2-arm64/INLA/bin/mac.arm64/fmesher,692820,40382add7998ad24100eb8d7ab7e50aebf9c15040d810de2e0fc14f814194869

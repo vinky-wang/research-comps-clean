@@ -1,0 +1,72 @@
+Prior-sensitivity design review
+
+The proposed 36-run factorial is appropriate for a focused diagnostic:
+2 fixed saved datasets x 2 fitted models x 3 observation-noise prior choices x
+3 areal-variance initializations. All runs use the same finer mesh and saved
+projectors, so this experiment isolates prior/start changes at that discretization.
+It is not a simulation comparison over independently generated datasets.
+
+Installed INLA 23.4.24 verification
+- Saved Melding family order: gaussian point, gaussian area
+- Saved PSmelding family order: gaussian point, gaussian area, poisson locations
+- control.family requires exactly one list per likelihood
+- hyper = list(prec = list(prior = 'pc.prec', param = c(u, alpha),
+  initial = -log(initial_variance), fixed = FALSE)) is accepted by the installed
+  inla.set.hyper normalizer
+- Leave the Poisson control list empty and preserve all other settings
+- PC calibration is P(sigma > u) = alpha, where sigma = 1/sqrt(q)
+- At alpha=.5, variance median is u^2: .099856 for B and .25 for C
+- P(variance < .001): A .9512294, B .06701362, C .04289146
+- Original variance median: .00007213475
+- PC priors still use variance zero as their base model; they do not forbid
+  near-zero noise. They place much less probability below .001 than A
+
+Scoring compatibility
+score_parameters() and evaluate_fit() use generic posterior marginals and
+likelihood-map names. They do not assume the precision prior is loggamma.
+Noise moments are calculated from normalized internal log-precision density,
+using exp(-eta), with inverse-moment and numerical integration checks.
+Spatial transformations and joint latent posterior sampling do not change.
+Retain score/summary validity diagnostics; finite posterior output alone does
+not establish accurate inverse moments or integration tails.
+Melding has no gamma parameter; this is not a missing result.
+
+Interpretation and comparison
+- Compare log posterior modes across starts only within the same prior, model,
+  dataset and mesh. Values across different priors are not optimizer rankings
+- Newly controlled A runs, rather than older fits with different optimization
+  settings, are the fair predictive baseline for B/C
+- Both Gaussian priors change together; this does not isolate the causal effect
+  of changing only the areal prior
+- Only the areal starting value varies. The experiment tests sensitivity in that
+  direction, not all possible optimizer basins or global uniqueness
+- Report all attempts, including failed diagnostics, rather than selecting one
+  convenient mode or replacing original fits
+- Single-dataset MSE/CRPS changes are descriptive and cannot establish full-study
+  predictive superiority or empirical coverage
+- Common posterior sampling seeds do not eliminate Monte Carlo variation or
+  guarantee exact paired draws when posterior configurations differ
+
+Stability screens
+The proposed within-prior screens are useful practical triggers: mode zero,
+no negative Hessian eigenvalues, log-mode range <= .01, mean/median/interval
+endpoint spread <= .1 pooled posterior SD, prediction RMS <= .01, and
+boundary probability spread <= .01. They are not convergence proofs.
+Retain absolute parameter spreads alongside pooled-SD measures, because broad
+or erroneous tails can make a standardized difference deceptively small.
+Record separate mode, Hessian, integration, parameter and prediction flags so
+one aggregate pass/fail does not obscure the source of instability.
+A 5% relative MSE/CRPS change and .01 absolute CRPS change can flag meaningful
+predictive sensitivity. Describe thresholds as screening choices, not theory.
+
+CRPS Monte Carlo uncertainty
+sample_crps() is an unbiased distinct-pair U-statistic.
+The SD of ten disjoint 100-draw block scores divided by sqrt(10) is an
+approximate SE, not exactly the SE of the full 1000-draw score because it omits
+cross-block pairs. Paired block-score differences can provide a similarly
+approximate uncertainty diagnostic for prior contrasts. Additional posterior
+draws are useful only if the contrast is close to its Monte Carlo noise.
+
+Read-only verification outputs:
+inspect.txt - installed functions, model defaults, saved family map
+check_syntax.txt - control-family prior normalization and prior probabilities

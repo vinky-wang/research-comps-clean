@@ -1,0 +1,4 @@
+file,sha256
+bin/mac.arm64/inla,18cf777645f1d9d59694e748bdfdfa0d3ce23ba8dd2eb06185a7fce2bbee38a1
+bin/mac.arm64/inla.run,b092f2c56c3c06f340806e369dacbc26b1e119a0c207e7ead33adf77711b27f9
+bin/mac.arm64/fmesher,40382add7998ad24100eb8d7ab7e50aebf9c15040d810de2e0fc14f814194869

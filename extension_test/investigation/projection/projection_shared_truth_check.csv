@@ -1,0 +1,7 @@
+"phase","job_id","same_truth_surface","same_true_areal_means","same_observed_areal_values","same_mesh_coordinates","same_equal_vertex_projector"
+"pilot","strength_case_0003_PSmelding",TRUE,TRUE,TRUE,TRUE,TRUE
+"pilot","clustering_case_0003_Melding",TRUE,TRUE,TRUE,TRUE,TRUE
+"pilot","clustering_case_0003_PSmelding",TRUE,TRUE,TRUE,TRUE,TRUE
+"finer_mesh","strength_case_0003_PSmelding",TRUE,TRUE,TRUE,TRUE,TRUE
+"finer_mesh","clustering_case_0003_Melding",TRUE,TRUE,TRUE,TRUE,TRUE
+"finer_mesh","clustering_case_0003_PSmelding",TRUE,TRUE,TRUE,TRUE,TRUE

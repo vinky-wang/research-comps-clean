@@ -1,0 +1,2 @@
+"completed_pilot_jobs","expected_pilot_jobs","pilot_seconds","pilot_bytes","projected_full_hours","projected_full_GiB","note"
+29,29,991.745,1887731663,27.5484722222222,175.808711256832,"Linear extrapolation from one replicate; includes per-job test overhead; not an upper bound"

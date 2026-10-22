@@ -1,0 +1,8 @@
+"replication","rho","I","J","noise_id","sampling_id","sampling_type","gamma","gamma_L","gamma_R","split_x","delta","rho_U","sigma2_U","experiment","log_intensity_phi_cor","tau2_s","tau2_B","case_id","model","source_case","fit_reused","region","n_locations","metric","value","valid","issue","needs_review"
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"MSE",0.414362489856916,TRUE,"",TRUE
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"MAE",0.506312041188875,TRUE,"",TRUE
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"WD_paper",0.434127375573231,TRUE,"",TRUE
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"CRPS_Z_gaussian",0.370641465445147,TRUE,"",TRUE
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"Z_coverage95",0.8024,TRUE,"",TRUE
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"Z_IS95",3.99284354051375,TRUE,"",TRUE
+1,0.2,100,25,"equal","gamma_1","constant",1,NA,NA,NA,0,NA,NA,"strength",NA,0.1,0.1,"case_0003","PSmelding","case_0003",FALSE,"all",2500,"CRPS_Z_joint",0.370808367507401,TRUE,"",TRUE

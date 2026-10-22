@@ -1,0 +1,75 @@
+PRODUCTION-MESH PRIOR-B CHECK: NOT NUMERICALLY CLEARED
+2026-10-22
+
+All six controlled fits and scoring attempts succeeded, with mode status 0,
+no recorded negative Hessian eigenvalues and no R fitting warnings
+Neither dataset/model group passes the predefined initialization-stability screens
+Prior B alone does not make the current production numerical settings stable
+No full simulation run was started and no original fit was replaced
+
+                                    Baseline PSmelding    Delta=2 Melding
+Log-posterior-mode spread            0.01631               0.31482
+Maximum mean shift, pooled SD        0.19478               0.27213
+Maximum 95% endpoint shift, SD       0.50548               0.62981
+Maximum latent mean RMS difference   0.00457               0.02315
+MSE range                           .35961-.36034         .45171-.45930
+Latent joint CRPS range              .34068-.34242         .37393-.37718
+
+Screens: log-mode spread <=.01, mean/median/endpoint shifts <=.1 pooled SD,
+latent posterior-mean RMS <=.01
+Baseline PSmelding fails the mode and parameter screens; its prediction RMS passes
+Delta=2 Melding fails the mode, parameter and prediction RMS screens
+The maximum CRPS block MCSE is .00083 and .00070 respectively; small CRPS
+differences must be interpreted alongside this Monte Carlo uncertainty
+
+Specific parameter changes
+Baseline PSmelding gamma means range from .95052 to .97386
+Its microergodic-parameter 97.5% endpoint ranges from 161.44 to 177.75
+Baseline areal variance posterior means range .05197-.05425; medians .04436-.04822
+Delta=2 Melding microergodic means range 238.68-271.29
+Its spatial-variance 97.5% endpoint ranges from 1.8102 to 2.0166
+Delta=2 areal variance means range .22772-.24481; medians .20210-.22305
+All generating areal variances are .1; these are one-replicate diagnostic fits,
+so departures from the truth are not an empirical bias or coverage assessment
+
+Boundary probability
+INLA's tabulated internal marginals give numerical P(tau_B^2<.001)=0 for all starts
+The corresponding log-precision threshold 6.9078 lies beyond every retained
+tabulated support. These zeros do not prove exactly zero posterior tail mass
+The posterior means/medians and credible intervals do not show concentration
+at this near-zero boundary under B in these six fits
+
+Numerical evidence
+Main tolerance remains the installed default .005, with auto integration
+(CCD: 27 configurations for PSmelding and 25 for Melding)
+Hyperparameter covariance/Hessian estimates vary appreciably across starts
+The backend also selected plain versus data-rich predictor evaluation across
+some attempts despite single-thread settings. This observation is not proof
+that backend selection causes the sensitivity: both baseline starts .001 and
+.1 selected plain and still differed
+Successful mode status alone is insufficient to establish stable uncertainty
+
+Comparison with earlier checks
+Earlier prior sensitivity used a finer 2832-vertex mesh and tolerance .0001
+Those tests passed for B/delta=2 Melding but not for B/baseline PSmelding
+The present checks use the original 1676-vertex production mesh and current
+default numerical settings. Differences from the earlier results combine mesh
+and tolerance changes and must not be attributed to either one in isolation
+
+Suggested next numerical work
+Keep prior B and the production mesh fixed while explicitly controlling the
+optimizer/integration settings in a separate diagnostic phase. First compare
+the same starts with tighter tolerance, retaining all attempts. If parameter
+tails remain sensitive, assess the hyperparameter integration/Hessian settings
+and explicitly record any backend selection. Do not select whichever original
+start gives preferable scores, and do not silently replace this phase's fits
+A full launch should await a documented numerical setting that passes the
+required stability assessment and the two-laptop reproducibility check
+
+Preservation and audit
+All six full model bundles, raw INLA returns, 1000 latent posterior draws per fit,
+pointwise predictions/scores, input datasets, starts and seeds are retained
+fit_settings_audit.csv verifies both priors, separate likelihoods, mesh and controls
+Original fit/data/score file hashes are unchanged
+This folder is approximately 892 MiB; it should be copied to durable storage
+before /tmp is cleared

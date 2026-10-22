@@ -1,0 +1,7 @@
+"dataset","model","prior_id","start_1","start_2","prediction_mean_RMS","screen_pass"
+"baseline","PSmelding","B",0.001,0.1,0.0076268515506779,TRUE
+"baseline","PSmelding","B",0.001,0.4,0.010870670607581,FALSE
+"baseline","PSmelding","B",0.1,0.4,0.00354809042950317,TRUE
+"clustering_delta2","Melding","B",0.001,0.1,0.000968190752447733,TRUE
+"clustering_delta2","Melding","B",0.001,0.4,0.000262548702758311,TRUE
+"clustering_delta2","Melding","B",0.1,0.4,0.000711297231937007,TRUE

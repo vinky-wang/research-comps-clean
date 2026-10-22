@@ -1,0 +1,7 @@
+"dataset","start_area","model","prior_id","source_id","job_id"
+"baseline",0.001,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p001"
+"clustering_delta2",0.001,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p001"
+"baseline",0.1,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p1"
+"clustering_delta2",0.1,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p1"
+"baseline",0.4,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p4"
+"clustering_delta2",0.4,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p4"

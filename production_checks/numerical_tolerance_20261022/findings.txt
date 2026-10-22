@@ -1,0 +1,78 @@
+NUMERICAL TOLERANCE FOLLOW-UP -- 2026-10-22
+
+Study launch remains pending; the main seven R scripts were not changed
+18 new controlled fits are retained, alongside the six original reference fits
+No original fits were replaced and no full simulation study was started
+
+Design
+Baseline PSmelding and independent-clustering delta=2 Melding each used
+three starting areal variances: 0.001, 0.1 and 0.4; point start was 0.1
+All phases retain the same two saved datasets, 1676-vertex production mesh,
+separate observation precisions with prior B (pc.prec c(0.316,0.5)),
+theta/x initial vectors, seeds, 1:1 threads and 1000 latent-score draws
+These are controlled warm-start diagnostics, not independent cold starts
+
+One additional control changed per phase:
+  Original: outer tolerance 0.005, inner tolerance 0.001, internal.opt TRUE
+  Tight outer: outer tolerance 0.0001
+  Fixed backend: also internal.opt FALSE
+  Tight inner: also tolerance.step 0.00001
+
+Maximum differences across the three starts within each phase/model:
+Phase / dataset                    mean/SD   endpoint/SD   prediction RMS   log-mode spread   pass
+original_default/baseline           0.19478      0.50548         0.004572          0.016309 FALSE
+original_default/delta2             0.27213      0.62981         0.023154          0.314820 FALSE
+tight_tolerance/baseline            0.18176      0.53662         0.011024          0.001994 FALSE
+tight_tolerance/delta2              0.02163      0.04704         0.002557          0.001289 TRUE
+fixed_backend/baseline              0.20025      0.64522         0.010871          0.001961 FALSE
+fixed_backend/delta2                0.00995      0.03188         0.000968          0.000372 TRUE
+tight_inner/baseline                0.20025      0.64522         0.010871          0.001961 FALSE
+tight_inner/delta2                  0.00995      0.03188         0.000968          0.000372 TRUE
+
+Interpretation
+Tightening the outer tolerance clears the tested delta=2 Melding group
+under the recorded screens. Neither disabling internal online optimization
+nor tightening the inner tolerance clears baseline PSmelding. The final
+inner-tolerance phase reproduces the preceding deterministic summaries
+Its maximum mean shift is 0.20025 pooled SD, endpoint shift 0.64522 pooled
+SD and prediction RMS 0.010871. Theta's upper endpoint is most sensitive
+All 18 new fits and scores completed with mode status 0 and no negative
+Hessian eigenvalues; this does not establish stable posterior uncertainty
+No new production numerical settings were adopted or frozen
+A focused Hessian/finite-difference and integration investigation remains
+appropriate before another readiness assessment; no further fits were run
+
+The existing screens were retained: mean/median/interval differences <=0.1
+pooled posterior SD, latent prediction mean RMS <=0.01, log-mode spread
+<=0.01, plus parameter validity, optimizer, Hessian, integration and boundary
+screens. These are practical review thresholds, not guarantees of accuracy
+Means and interval endpoints come from retained posterior marginals and
+predictions from INLA summaries; failures cannot be fixed by more CRPS draws
+Integration excess is read from logs rounded to three decimals; passing at
+0.001 is a pass of the recorded screen rather than full-precision proof
+Boundary probabilities must be read alongside each phase's support audit:
+a zero probability beyond tabulated marginal support is not exact tail mass
+
+Scores and preservation
+all_phase_attempts.csv records every attempt, runtime, MSE and latent CRPS
+score_ranges.csv summarizes the observed MSE/CRPS ranges within each phase
+CRPS_Z_joint uses 1000 posterior draws; block MCSE is an approximation
+phase_stability.csv records every screening component and score spread
+Each phase directory retains raw/full fits, data, posterior draws, pointwise
+predictions, checkpoints, scripts, controls audits and SHA256 manifests
+Scripts and RDS provenance keep their original /tmp execution paths; each
+phase's path_mapping.csv explains access through the durable archive
+
+Laptop 2
+macOS with Apple silicon can target the same R architecture; its actual
+R/packages/native libraries and numerical results remain unverified
+laptop_2_apple_silicon.txt gives a no-fit environment check and limitations
+The current main-code laptop reference still uses default tolerance 0.005
+After numerical settings are accepted, a new frozen configuration and fresh
+laptop-1 reference are required before a fresh independent laptop-2 check
+Never use copied completed fits as laptop 2's output directory
+
+Publication
+The existing production_v2_20261022 frozen configuration stays unchanged
+Only this follow-up's compact reports are published to its analysis folder
+Full fitted objects are retained locally; the reports ZIP does not contain them

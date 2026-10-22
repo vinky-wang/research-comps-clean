@@ -1,0 +1,15 @@
+Planned/completed checkpoint records: 36 36
+Retained fits inspected once: 36
+Noise marginal rows: 72
+Areal .001 threshold cautions: 19
+Areal .001 thresholds outside saved support: 19
+Noise summaries invalid or unavailable: 0
+Boundary events use P(variance<t)=P(log precision>-log(t))
+CDF comparisons condition on the normalized interpolated SAVED marginal support
+No support check can bound unknown posterior mass outside the saved support
+A computed zero or one outside that support is not an exact posterior tail statement
+Small endpoint density is reassuring but is not a proof of negligible missing tail mass
+Caution flags are diagnostic prompts and do not automatically invalidate a fit
+CDF difference .001 and endpoint-to-peak density .001 are post-hoc numerical audit screens
+Joint-configuration/marginal differences are recorded, not used as automatic failure rules
+All original data, fitted objects, and study outputs were left unchanged

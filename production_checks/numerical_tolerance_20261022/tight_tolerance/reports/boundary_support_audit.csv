@@ -1,0 +1,13 @@
+"dataset","start_area","model","prior_id","source_id","job_id","component","minimum_log_precision","maximum_log_precision","threshold_log_precision","threshold_outside_tabulated_support"
+"baseline",0.001,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p001","point",0.731459963583456,2.64606366090551,6.90775527898214,TRUE
+"baseline",0.001,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p001","area",0.817436052308339,6.8885295693385,6.90775527898214,TRUE
+"clustering_delta2",0.001,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p001","point",1.17565389999007,3.6003653476215,6.90775527898214,TRUE
+"clustering_delta2",0.001,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p001","area",-0.459571219229131,4.16700276335719,6.90775527898214,TRUE
+"baseline",0.1,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p1","point",0.664889866329318,2.69738055471935,6.90775527898214,TRUE
+"baseline",0.1,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p1","area",0.81894358951735,6.08277473117621,6.90775527898214,TRUE
+"clustering_delta2",0.1,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p1","point",1.18003340837622,3.6058897108394,6.90775527898214,TRUE
+"clustering_delta2",0.1,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p1","area",-0.493185453967022,4.13451179719856,6.90775527898214,TRUE
+"baseline",0.4,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p4","point",0.695026551780563,2.65920318033122,6.90775527898214,TRUE
+"baseline",0.4,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p4","area",0.656527251481271,6.01427716778251,6.90775527898214,TRUE
+"clustering_delta2",0.4,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p4","point",1.17535104463744,3.60677000515451,6.90775527898214,TRUE
+"clustering_delta2",0.4,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p4","area",-0.483696352320538,4.13380101541043,6.90775527898214,TRUE

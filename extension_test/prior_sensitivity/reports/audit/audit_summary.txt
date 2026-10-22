@@ -1,0 +1,7 @@
+Saved checkpoint records audited: 36
+Checkpoint setting checks all pass: TRUE
+Full fit bundles audited: 6
+Full-fit actual argument/log/fixed-model checks all pass: TRUE
+At most one full fitted bundle read per prior/model pair
+This audit does not assess statistical quality of posterior estimates
+No fitted object, source, or study output was modified

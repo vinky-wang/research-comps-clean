@@ -1,0 +1,86 @@
+NUMERICAL CONTROL REVIEW -- INLA 23.04.24
+2026-10-22; read-only investigation followed by this requested notes file.
+No fitting was performed during this review.
+
+Evidence and scope
+Installed library: /Users/vinky/research-comps/.r-lib/4.2-arm64/INLA
+Runtime inspected with /Users/vinky/research-comps/R/run_r42 (R 4.2-arm64).
+packageVersion(INLA) returned 23.4.24. The installed binary's -V output
+identified commit 882c43d68fb015d72b699bcc458cf277dfe110c2, dated 2023-04-24.
+Defaults below were read from installed inla.set.control.inla.default(),
+inla.set.control.compute.default(), help(control.inla), help(control.compute),
+and deparsed installed inla.inla.section()/inla.problem.section(). These
+effective R defaults take precedence over older fallback defaults/comments
+inside the C source. The original production-fit logs corroborate them.
+
+Verified effective defaults and behavior
+- control.inla$tolerance=.005. Unless separately supplied, tolerance.f is
+  2*tolerance and tolerance.g/tolerance.x equal tolerance. Therefore setting
+  only tolerance=1e-4 gives f=2e-4 and g=x=1e-4.
+- tolerance.step=.001 controls the inner latent-field optimization. Changing
+  outer tolerance does not change it. Logs also report a separate inner
+  tolerance_func=.0005; it is not a documented control.inla argument here.
+- h=.005; num.gradient="central"; num.hessian="central". The backend maps h
+  to gradient step h and Hessian step sqrt(abs(h)); original logs therefore
+  report Hessian step .0707107. Changing h is not a Hessian-only intervention.
+- optimise.strategy="smart"; use.directions=TRUE; restart=0. The help labels
+  direction use and optimizer strategy experimental. restart counts further
+  optimizer restarts at a found optimum; it is distinct from control.mode.
+- control.compute$internal.opt=TRUE enables internal online optimizations.
+  The backend times computational implementations and chooses between plain
+  and data-rich predictor evaluation. FALSE bypasses these comparisons,
+  fixes predictor=plain and Qx=serial, and fixes the sort cutoff to 128.
+- int.strategy="auto"; dz=.75; diff.logdens=6; force.diagonal=FALSE;
+  diagonal=0; cmin=-Inf. These original fits use CCD (4 or 5 hyperparameters).
+  Their logs label dz/diff.logdens/skip.configurations as GRID-only controls.
+- Original logs show num.threads=1:1 and blas.num.threads=1. An explicit
+  blas.num.threads=1 records the intended setting; it is already effective.
+
+Matching official source references (one-based file line numbers)
+Backend timing and fixed fallback:
+https://github.com/hrue/r-inla/blob/882c43d68fb015d72b699bcc458cf277dfe110c2/inlaprog/src/inla.c#L34576-L34625
+Backend control parser:
+https://github.com/hrue/r-inla/blob/882c43d68fb015d72b699bcc458cf277dfe110c2/inlaprog/src/inla.c#L35184-L35185
+Separate outer/inner tolerance parsing:
+https://github.com/hrue/r-inla/blob/882c43d68fb015d72b699bcc458cf277dfe110c2/inlaprog/src/inla.c#L28789-L28804
+Gradient/Hessian step coupling and numerical schemes:
+https://github.com/hrue/r-inla/blob/882c43d68fb015d72b699bcc458cf277dfe110c2/inlaprog/src/inla.c#L29014-L29053
+Automatic integration and CCD handling:
+https://github.com/hrue/r-inla/blob/882c43d68fb015d72b699bcc458cf277dfe110c2/gmrflib/approx-inference.c#L2378-L2399
+
+Staged follow-ups if the tolerance=1e-4 phase remains insufficient
+Keep prior B, the 1676-vertex mesh, input data/matrices, starts, VB variance
+correction, sampling method, and other controls fixed. Preserve every attempt.
+The numeric choices below are diagnostic proposals, not prescribed defaults.
+
+1. Backend diagnostic: add only control.compute$internal.opt=FALSE, preserving
+   existing control.compute fields. Repeat the same starts and at least one
+   identical-start fit. This isolates the timing-dependent backend selection
+   actually observed in prior logs. It does not establish that this selection
+   caused the earlier instability. Treat the resulting configuration as a
+   new baseline before testing another control.
+2. Inner tolerance diagnostic: from that documented baseline, change only
+   tolerance.step from .001 to 1e-5 while retaining outer tolerance=1e-4.
+   This tests whether insufficiently converged latent optimization affects
+   the outer objective and numerical curvature. It is not guaranteed to help.
+3. Finite-difference diagnostic: if covariance/interval sensitivity remains,
+   hold the preceding configuration fixed and test h=.0025 and h=.01 against
+   .005. Smaller steps are not automatically more accurate. Compare internal
+   modes, covariance, stdev corrections, marginal summaries, and endpoints.
+   A separate use.directions=FALSE test can probe direction-history effects;
+   do not combine it with an h change in the same causal comparison.
+
+Do not assume that specifying grid creates denser integration here: installed
+help says experimental mode maps grid to CCD above two hyperparameters.
+Changing dz/diff.logdens alone is therefore not a justified next CCD test.
+Avoid force.diagonal, added diagonal precision, cmin, or empirical Bayes as
+routine fixes: these alter uncertainty treatment or introduce substantive
+differences rather than isolating the observed numerical sensitivity.
+
+Interpretation limits
+Passing the existing screens demonstrates stability only under the tested
+perturbations. Mode status zero and no negative eigenvalues do not establish
+accurate Hessians or credible intervals. Stable means alone cannot clear
+intervals. Removing online optimization does not guarantee bitwise or
+portable reproducibility; the two-laptop check remains outstanding. No
+single-replicate result establishes bias, coverage, or full-study readiness.

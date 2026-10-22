@@ -1,0 +1,94 @@
+
+Preferential sampling extensions / strength
+ rho   I  J sampling_id gamma gamma_L gamma_R delta rho_U sigma2_U tau2_s
+ 0.2 100 25     gamma_0   0.0      NA      NA     0    NA       NA    0.1
+ 0.2 100 25   gamma_0p5   0.5      NA      NA     0    NA       NA    0.1
+ 0.2 100 25     gamma_1   1.0      NA      NA     0    NA       NA    0.1
+ 0.2 100 25   gamma_1p5   1.5      NA      NA     0    NA       NA    0.1
+ 0.2 100 25     gamma_2   2.0      NA      NA     0    NA       NA    0.1
+ tau2_B log_intensity_phi_cor
+    0.1                    NA
+    0.1                    NA
+    0.1                    NA
+    0.1                    NA
+    0.1                    NA
+Global replicates: 51 - 100 | Full study size: 100 | Physical fits: 500 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_051_055/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_056_060/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_061_065/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_066_070/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_071_075/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_076_080/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_081_085/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_086_090/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_091_095/strength 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_096_100/strength 
+
+Preferential sampling extensions / areal_noise
+ rho   I  J sampling_id gamma gamma_L gamma_R delta rho_U sigma2_U tau2_s
+ 0.2 100 25     gamma_1     1      NA      NA     0    NA       NA    0.1
+ 0.2 100 25     gamma_1     1      NA      NA     0    NA       NA    0.1
+ 0.2 100 25     gamma_1     1      NA      NA     0    NA       NA    0.1
+ 0.2 100 25     gamma_1     1      NA      NA     0    NA       NA    0.1
+ 0.2 100 25     gamma_1     1      NA      NA     0    NA       NA    0.1
+ tau2_B log_intensity_phi_cor
+  0.025                    NA
+  0.050                    NA
+  0.100                    NA
+  0.200                    NA
+  0.400                    NA
+Global replicates: 51 - 100 | Full study size: 100 | Physical fits: 500 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_051_055/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_056_060/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_061_065/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_066_070/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_071_075/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_076_080/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_081_085/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_086_090/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_091_095/areal_noise 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_096_100/areal_noise 
+
+Preferential sampling extensions / spatial_gamma
+ rho   I  J        sampling_id gamma gamma_L gamma_R delta rho_U sigma2_U
+ 0.2 100 25         constant_1    NA     1.0     1.0     0    NA       NA
+ 0.2 100 25 mild_heterogeneity    NA     0.5     1.5     0    NA       NA
+ 0.2 100 25      sign_reversal    NA    -0.5     2.5     0    NA       NA
+ tau2_s tau2_B log_intensity_phi_cor
+    0.1    0.1                    NA
+    0.1    0.1                    NA
+    0.1    0.1                    NA
+Global replicates: 51 - 100 | Full study size: 100 | Physical fits: 150 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_051_055/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_056_060/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_061_065/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_066_070/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_071_075/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_076_080/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_081_085/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_086_090/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_091_095/spatial_gamma 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_096_100/spatial_gamma 
+
+Preferential sampling extensions / clustering
+ rho   I  J sampling_id gamma gamma_L gamma_R delta rho_U sigma2_U tau2_s
+ 0.2 100 25     delta_0     1      NA      NA     0   0.2        1    0.1
+ 0.2 100 25     delta_1     1      NA      NA     1   0.2        1    0.1
+ 0.2 100 25     delta_2     1      NA      NA     2   0.2        1    0.1
+ tau2_B log_intensity_phi_cor
+    0.1             1.0000000
+    0.1             0.7071068
+    0.1             0.4472136
+Global replicates: 51 - 100 | Full study size: 100 | Physical fits: 300 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_051_055/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_056_060/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_061_065/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_066_070/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_071_075/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_076_080/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_081_085/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_086_090/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_091_095/clustering 
+Output: /private/tmp/psmelding-batch-work/results/extension/production_v2_20261022/laptop_2/batch_096_100/clustering 
+
+Preview only. Add --run to start fitting

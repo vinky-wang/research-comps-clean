@@ -1,0 +1,202 @@
+EXTENSION NUMERICAL INVESTIGATION
+2026-10-22
+
+The investigation found BOTH areal-projection sensitivity and numerical
+sensitivity with the data and mesh held fixed. Mesh refinement alone does not
+resolve the fitting issues. All original fitted objects and production scripts
+were retained. No result was selectively substituted into the simulation study
+
+The existing noise prior also makes very small variances plausible a priori
+Consequently, a stable near-zero variance result need not be an optimizer error
+These are distinct issues and should not be conflated
+
+1. SAVED PROBLEMATIC FITS
+
+Seven saved fits were inspected: the requested three cases on both meshes,
+plus a saved duplicate baseline Melding fit for the repeatability comparison
+
+Baseline PSmelding on the finer mesh is genuinely concentrated near zero in its
+saved approximate posterior: areal variance median 0.0000705, 95% interval
+[0.0000147, 0.0005894], P(variance < 0.001) = 0.9923
+It has mode_status=0 and no logged negative Hessian eigenvalue
+
+The verified Gamma(1,0.00005) precision prior induces an inverse-Gamma variance
+prior with median 0.0000721 and P(variance < 0.001) = 0.9512
+The posterior resembles that prior scale. This is consistent with weak
+information about very small areal variance, but does not prove prior dominance
+Neither the prior nor these continuous posteriors places point mass at zero
+No prior sensitivity fits or changes were made
+
+The finer delta=2 Melding fit is a different problem: its variance mean 0.2677
+comes from a broad, irregular upper tail, with median 0.1186 and 95% interval
+[0.0142,1.1527]. It is not near-zero concentration in that saved marginal
+Its log records a negative Hessian eigenvalue and an integration-direction SD
+correction of 29.19. Its original scalar mean should not be taken at face value
+as evidence that the data support much larger noise on a finer mesh
+
+The original repeated Melding baseline modes differ by only 0.0000217 in their
+largest internal coordinate, and their log posterior modes differ by 0.0000078
+Their covariance matrices are also almost identical, yet areal variance means
+differ from 0.03970 to 0.01730. Repaired Hessians have tied eigenvalues; the
+corresponding eigenvectors rotate and asymmetric integration corrections change
+Timing-based predictor arithmetic also differed: plain versus data-rich
+These observations locate substantial sensitivity in curvature/integration as
+well as mode finding; they do not identify a single proven causal mechanism
+
+Several saved integration points have higher density than the reported modes
+Thus agreement between reported modes is not evidence that either found the
+best-supported region. Positive eigenvalues in the saved, repaired covariance
+also do not override the negative-eigenvalue messages in the original log
+
+Independent recomputation reproduced all saved noise-variance summaries exactly
+The reported discrepancies are not reciprocal-of-mean errors or stale summaries
+See posterior/findings.txt, its tables/figures, and methods/methodological_review.txt
+
+2. AREAL PROJECTION
+
+All 25 generating areal means exactly match the mean of their 100 raster cells
+A_B row sums are one; vertex counts range from 36-44 on the production mesh to
+65-76 on the finer mesh. These actual meshes have no shared-boundary vertices
+The requested cases share the same truth, areal data and A_B within resolution
+
+The saved field is known only at 2500 cell centres. Mesh nodal values therefore
+require a diagnostic reconstruction. Both nearest-cell and bilinear interpolation
+were checked, clamping coordinates to the outermost available centres at edges
+Exact FE integration clips mesh triangles to each area and integrates linear
+basis functions using fragment areas and centroids. Constant, linear and domain
+coverage checks all pass
+
+RMSE against the stored true areal means:
+                                      Production mesh    Finer mesh
+Equal-vertex A_B, bilinear                    0.04160        0.03247
+Exact FE integration, bilinear               0.01674        0.01165
+Equal-vertex A_B, nearest cell                0.04378        0.03895
+Exact FE integration, nearest cell            0.02992        0.02219
+
+With bilinear nodal reconstruction, the mesh-to-mesh change in the projected
+areal averages has RMS 0.04774 for A_B and 0.01012 for exact FE integration
+The generating areal-noise SD is sqrt(0.1)=0.3162 for scale comparison
+
+Equal-vertex weighting contributes measurable discretization error. Exact FE
+integration improves this diagnostic for both reconstructions. However, it is
+exact only for the reconstructed FE surface, not for unobserved continuous truth
+These comparisons alone cannot explain or causally attribute the tenfold fitted
+variance change. No fitting projector was replaced in this investigation
+See projection/findings.txt and projection/projection_area_comparison.csv
+
+3. CONTROLLED OPTIMIZER INVESTIGATION
+
+The plan was recorded before fitting in optimizer_plan.txt
+For each of six source fits, three starts used tolerance=0.0001 instead of 0.005:
+  - the saved hyperparameter mode
+  - that mode with initial areal variance changed to 0.001
+  - that mode with initial areal variance changed to 0.1
+All use the saved latent-mode starting vector, restart=TRUE and fixed=FALSE
+The variance is estimated; those values are starting points only
+Two default-call repetitions and one tight saved-start repetition were also run
+
+Data, formula, priors, meshes, A_B, integration strategy, variance correction and
+finite-difference step h=0.005 were unchanged. The original INLA 1:1 thread setting
+and seed were retained; BLAS/OpenMP thread settings were explicitly set to one
+The inner latent-solver tolerance remained unchanged: this is tighter
+hyperparameter optimization, not universally higher numerical accuracy
+
+All 21 planned fits completed and were retained. All extracted parameter summaries
+passed the implemented finite-value/coherence checks. Nevertheless, one fit has
+nonzero mode status and four have logged negative Hessian eigenvalues
+Two PSmelding runs evaluated integration points above their reported modes
+Those are numerical review flags, even when the returned summaries are finite
+
+Areal variance posterior MEANS from the three tight-tolerance starts:
+Case and mesh                    Saved mode    Start v=.001   Start v=.1
+Baseline Melding / production      0.000177311  0.000171016  0.000167667
+Delta=2 Melding / production         0.0239045  0.000159782       0.1391
+Baseline PSmelding / production      0.0198917  0.000156234    0.0210953
+Baseline Melding / finer            0.00016122  0.000167721   0.00016201
+Delta=2 Melding / finer            0.000166397  0.000249493     0.107685
+Baseline PSmelding / finer         0.000122344    0.0001283  0.000139901
+
+The values in each row use the same data, same mesh and same A_B
+This is direct evidence of fitting/approximation sensitivity separate from
+changes in the areal projection
+
+Baseline Melding: all three tight starts found closely matching, much higher
+log-posterior modes than the originals, by about 3.674 log units on the production
+mesh and 3.835 on the finer mesh. Their areal-variance means are about 0.00016-
+0.00018, close to zero relative to the generating value 0.1
+
+Delta=2 Melding: initialization still matters on BOTH meshes. The start at 0.001
+finds higher-density near-zero solutions; other starts can stay in different
+regions. On the production mesh, the log-mode improvements relative to the
+original are approximately 0.00016,3.874 and 1.013 for saved, 0.001 and 0.1 starts
+On the finer mesh they are 4.020,4.020 and0.543. Even mode_status=0 and an absence
+of negative-eigenvalue warnings can accompany a lower-density local result
+
+Baseline PSmelding: production-mesh starts remain sensitive. The 0.001 start
+finds a mode 2.911 log units above the original, with area-variance mean 0.000156
+The other two starts remain near the original lower-density region with means
+about 0.020. The saved-start run has mode_status=1; the 0.1-start run logs a
+negative Hessian eigenvalue. Both evaluate an integration point above their
+reported modes. On the finer mesh all three starts remain near zero, with
+means 0.000122-0.000140 and nearly identical log-mode values
+
+REPEATABILITY
+The two new default-call repetitions are identical in modes, reported parameters
+and prediction means. They reproduce the earlier areal-noise baseline result,
+not the original strength-run marginal. This does not erase the original
+repeatability discrepancy
+
+The tighter saved-start baseline Melding repetition is close but not bitwise
+identical: prediction-mean RMS difference 5.84e-5, maximum parameter-mean change
+0.00368 original posterior SD, and log-mode difference 0.000117
+Areal-variance means are 0.0001773 and0.0001725. Both have mode_status=0 and no
+negative-eigenvalue log message. Runtime-selected arithmetic remains a possible
+source of small residual differences even with fixed R seeds and one thread
+
+These findings do not prove global optimality or determine posterior mass in
+competing regions. A higher mode is useful evidence of an inadequate previous
+optimization, but selecting the highest mode alone does not validate the full
+posterior marginal or integrate possible alternative modes
+No result was chosen to replace an original or used to revise simulation scores
+See reports/optimizer_runs.csv, optimizer_pairwise.csv,
+optimizer_direction_diagnostics.csv and optimizer_areal_variance.png
+
+4. IMPLICATIONS BEFORE THE FULL STUDY
+
+A. Do not rely on mode_status alone, and do not regard a single saved-mode
+restart or smaller tolerance as a complete fix. Use a common, documented
+initialization and validation protocol across models and scenarios; inspect
+higher-density regions, integration diagnostics and marginal stability together
+The competing regions for delta=2 Melding and production-mesh PSmelding merit
+further hyperparameter profiling/integration checks before production
+
+B. Treat exact FE areal integration as a candidate diagnostic or documented
+methodological change, not a silent replacement for Zhong's equal-vertex rule
+This investigation demonstrates its improved projection of reconstructed truth;
+it did not refit models with that operator or establish that doing so resolves
+the numerical issues
+
+C. Keep the current priors if required for reproduction, but explicitly report
+near-zero areal-variance behavior and its relationship to the prior scale
+Changing priors would change the fitting specification and has not been done
+Near-zero concentration cannot simply be discarded as a failed fit
+
+D. Recheck a full-resolution pilot using any finalized common fitting protocol
+before the 100-replicate study. This one replicate cannot establish recovery,
+coverage or model superiority, and the current investigation does not certify
+production readiness
+
+RETENTION AND REPRODUCIBILITY
+Original fit/data/result files and the copied R source were hashed before and
+after the optimizer runs; all hashes match (reports/original_integrity.txt)
+The original production R scripts were not edited
+All 21 new complete fits and their warnings, starts, seeds and logs remain under
+optimizer/. Original truth, pointwise predictions and fitted objects remain in
+the preceding extension_test/results/ directories
+The new investigation occupies approximately 1.6 GiB
+
+The use of starting modes and the interpretation of tolerance were checked
+against installed INLA 23.04.24 defaults and official documentation:
+https://www.r-inla.org/learnmore/docs/reference/control.mode.html
+https://www.r-inla.org/learnmore/docs/reference/control.inla.html
+See README.txt for scripts and navigation

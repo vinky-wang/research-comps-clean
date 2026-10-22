@@ -1,0 +1,36 @@
+INDEPENDENT AUTOMATED READ-ONLY AUDIT
+2026-10-22
+
+A separate reviewing agent recomputed comparisons from saved fit bundles and
+checkpoints without performing any additional fits
+
+Exact controls
+Phase 1 differs from the original matched fits only by tolerance=1e-4
+Phase 2 differs from phase 1 only by internal.opt=FALSE
+Phase 3 differs from phase 2 only by tolerance.step=1e-5
+Data, likelihood/projection matrices, starts, priors, mesh and other relevant
+controls match. Native logs confirm internal.opt=0 and tolerance_step=1e-05
+in the final phase. The separate tolerance_func stays 0.0005; h stays 0.005
+
+Final recomputed comparison maxima
+Baseline PSmelding: mean 0.200251 pooled SD; median 0.171763 pooled SD;
+interval endpoint 0.645217 pooled SD; prediction RMS 0.01087067 -- FAIL
+Delta=2 Melding: mean 0.00995179 pooled SD; endpoint 0.0318773 pooled SD;
+prediction RMS 0.000968191 -- PASS of the recorded screens
+
+All six phase-3 fits have exactly zero differences from phase 2 in log
+posterior mode, prediction means, parameter means and cov.intern matrices
+The tighter inner tolerance did not change these particular calculations
+
+Baseline covariance discrepancies also occur between fits selecting the same
+plain backend, so timing-based backend selection is not a sufficient cause
+Successful mode status and a positive Hessian do not establish stable
+posterior intervals. Remaining sensitivity warrants a distinct curvature,
+finite-difference and integration investigation; its cause is not established
+
+The delta=2 integration screen uses a log value rounded to three decimals
+Its pass at the inclusive 0.001 cutoff is not a full-precision guarantee
+The CRPS block Monte Carlo error calculation is approximate and does not
+explain the deterministic parameter/prediction failures
+
+No production configuration or second-laptop result was accepted by this audit

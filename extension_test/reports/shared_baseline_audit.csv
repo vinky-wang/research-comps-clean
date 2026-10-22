@@ -1,0 +1,5 @@
+"job_id","same_Z","same_points","same_areas","same_location_seed"
+"strength_case_0003_Melding",TRUE,TRUE,TRUE,TRUE
+"areal_noise_case_0003_Melding",TRUE,TRUE,TRUE,TRUE
+"spatial_gamma_case_0001_PSmelding",TRUE,TRUE,TRUE,TRUE
+"clustering_case_0001_Melding",TRUE,TRUE,TRUE,TRUE

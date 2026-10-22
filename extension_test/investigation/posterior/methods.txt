@@ -1,0 +1,6 @@
+Posterior boundary probabilities use the retained finite-support log-precision marginal, normalized and integrated on a dense grid
+They do not establish behavior beyond saved marginal support or validate the INLA approximation
+No continuous precision/variance posterior puts point mass at zero variance
+The variance mode, variance at log-variance mode, and variance at joint hyperparameter mode are reported separately
+The saved cov.intern is post-Hessian-correction output; its positive eigenvalues do not negate original negative-eigenvalue diagnostics
+All calculations are diagnostic reanalysis of saved fits; no fit was replaced or refitted

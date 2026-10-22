@@ -1,0 +1,78 @@
+76 checks passed
+strength full-plan IDs retained 1
+strength locations seeds retained 1
+strength fit seeds retained 1
+strength scores seeds retained 1
+strength full-plan IDs retained 51
+strength locations seeds retained 51
+strength fit seeds retained 51
+strength scores seeds retained 51
+strength halves disjoint
+areal_noise full-plan IDs retained 1
+areal_noise locations seeds retained 1
+areal_noise fit seeds retained 1
+areal_noise scores seeds retained 1
+areal_noise full-plan IDs retained 51
+areal_noise locations seeds retained 51
+areal_noise fit seeds retained 51
+areal_noise scores seeds retained 51
+areal_noise halves disjoint
+spatial_gamma full-plan IDs retained 1
+spatial_gamma locations seeds retained 1
+spatial_gamma fit seeds retained 1
+spatial_gamma scores seeds retained 1
+spatial_gamma full-plan IDs retained 51
+spatial_gamma locations seeds retained 51
+spatial_gamma fit seeds retained 51
+spatial_gamma scores seeds retained 51
+spatial_gamma halves disjoint
+clustering full-plan IDs retained 1
+clustering locations seeds retained 1
+clustering fit seeds retained 1
+clustering scores seeds retained 1
+clustering full-plan IDs retained 51
+clustering locations seeds retained 51
+clustering fit seeds retained 51
+clustering scores seeds retained 51
+clustering halves disjoint
+1,450 physical fits per laptop
+named CLI creates 10 planned batches per experiment
+CLI keeps full study size and global ranges
+preview writes no run artifacts
+out-of-range CLI rejected
+named production run requires explicit global range
+huge out-of-range end rejected before sequence allocation
+named test preview safely selects its own one-replicate range
+real production mesh initialized
+successful job checkpoints and finalizes
+uninterrupted job elapsed scope is explicit
+actual prior B frozen
+completed resume leaves every artifact byte-identical
+changed configuration rejected
+changed source rejected
+second writer rejected
+fit failure retained as terminal status
+failed attempt never silently retried or replaced
+interruption preserves complete fit and releases lock
+post-fit interruption resumes scoring without refitting
+resumed job timing is labelled as partial session
+dataset hashes exist before an interrupted job completes
+corrupted dataset in incomplete job is rejected before loading
+incomplete dataset corruption causes no fit or scoring and releases the lock
+diagnostics survive interruption before terminal checkpoint
+resuming after diagnostics preserves original timing, scope and warnings without fitting or scoring
+raw INLA return survives interrupted fit postprocessing
+incomplete fit is retained for review without automatic retry
+unverified remote lock cannot be reclaimed
+dead local lock is archived before recovery
+PSgeo is fitted once across areal counts
+PSgeo reused checkpoint verifies unchanged
+named CLI runs both requested global batches
+central manifests contain one complete record for each laptop batch experiment
+central records bind saved batch manifests and claim only local verification
+CLI verify-only checks completed batches without changing files or fitting
+repeated named CLI command resumes both batches unchanged
+batch summaries count selected replicates only
+corrupted saved prediction rejected
+verification failure releases writer lock
+Artifacts: /tmp/psmelding-batch-work/tests/outputs_20261022_024008

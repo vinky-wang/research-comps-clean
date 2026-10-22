@@ -1,0 +1,7 @@
+"dataset","job1","job2","max_internal_mode_difference","relative_covariance_Frobenius_difference","max_negative_stdev_correction_difference","max_positive_stdev_correction_difference"
+"baseline","baseline__PSmelding__B__area_0p001","baseline__PSmelding__B__area_0p1",0.0381062157901182,0.920887464997698,0.371588197139839,0.33789335619913
+"baseline","baseline__PSmelding__B__area_0p001","baseline__PSmelding__B__area_0p4",0.035606331701044,1.17861585301111,1.19553682524959,0.477821191436647
+"baseline","baseline__PSmelding__B__area_0p1","baseline__PSmelding__B__area_0p4",0.00341043324249379,0.686701733072479,0.823948628109747,0.230155670739348
+"clustering_delta2","clustering_delta2__Melding__B__area_0p001","clustering_delta2__Melding__B__area_0p1",0.0137824287567687,0.0235847268831125,0.0230319503734271,0.00895146072103514
+"clustering_delta2","clustering_delta2__Melding__B__area_0p001","clustering_delta2__Melding__B__area_0p4",0.00297454063578595,0.00553513650582156,0.00544454129070315,0.00248098062577495
+"clustering_delta2","clustering_delta2__Melding__B__area_0p1","clustering_delta2__Melding__B__area_0p4",0.0108078881209828,0.0184381865178995,0.0175874090827239,0.00647048009526019

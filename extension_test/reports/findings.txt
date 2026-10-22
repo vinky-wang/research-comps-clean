@@ -1,0 +1,115 @@
+EXTENSION TEST FINDINGS
+
+Recommendation: investigate numerical sensitivity and arrange sufficient storage
+before starting the full 100-replicate study
+
+SCOPE AND COMPLETION
+The isolated test completed all 29 model fits across the 16 extension conditions,
+five additional finer-mesh fits, and five higher-draw CRPS checks
+Every fit used I=100, J=25 and N=2500 at the full study resolution
+This is one replicate per condition, not an estimate of study performance
+The main project R scripts were verified unchanged
+All simulated latent surfaces, pointwise predictions and complete fits are retained
+
+EXECUTION AND NUMERICAL DIAGNOSTICS
+All 34 fits were saved and scored, with no invalid scores, invalid parameter
+summaries or parameter-coherence flags detected by the implemented checks
+However, successful scoring does not establish numerical reliability
+
+Three fits returned mode_status=1:
+  pilot: strength_case_0003_Melding
+  finer_mesh: strength_case_0003_Melding
+  finer_mesh: clustering_case_0003_Melding
+Eight fits logged one negative Hessian eigenvalue, including some with mode_status=0
+The generic review flag was set on all 34 fits because the engine flags any
+'ensure spd for Hessian' message; 26 fits logged zero negative eigenvalues
+Routine SPD checks alone should not be interpreted as failed convergence
+See hessian_review.csv, hessian_excerpts.txt and job_diagnostics.csv
+No failed or flagged fit was selectively replaced by a different seed or retry
+
+MESH SENSITIVITY
+The production mesh had 1676 vertices; the finer mesh had 2832
+Both maximum-edge settings and cutoff were multiplied by 0.75
+Data, priors and numerical controls were held fixed
+Four of five comparisons exceeded the prespecified posterior-mean prediction
+RMS change tolerance of 0.05, relative to generating field SD=1
+All five global CRPS changes were below the absolute tolerance of 0.01
+Fifteen of 33 parameter comparisons exceeded 0.25 baseline posterior SD
+
+Notable changes:
+  Independent clustering delta=2, Melding:
+    prediction RMS change = 0.1265
+    areal-noise variance posterior mean = 0.02715 -> 0.26767
+    variance mean shift = 11.86 baseline posterior SD
+  Baseline gamma=1, PSmelding:
+    prediction RMS change = 0.0661
+    areal-noise variance posterior mean = 0.01880 -> 0.0001274
+
+Aggregate CRPS stability therefore does not establish stable pointwise predictions
+or parameter inference. Investigate the SPDE/areal integration approximation and
+optimizer/Hessian behavior on these saved cases before choosing production settings
+This comparison does not isolate which mechanism causes the changes
+One mesh refinement and one replicate are not a convergence study
+The thresholds are practical screening criteria, not formal convergence guarantees
+See mesh_comparison.csv and mesh_parameter_changes.csv
+
+POSTERIOR-DRAW SENSITIVITY
+Rescoring five existing pilot fits with 5000 rather than 1000 posterior draws
+changed global latent-surface joint CRPS by at most 0.0010194
+All five changes were below the prespecified 0.01 tolerance
+Increasing draws is not indicated as the first remedy for the mesh sensitivity
+These joint CRPS values remain Monte Carlo estimates
+See crps_stability.csv
+
+REPRODUCIBILITY AND RETENTION
+The four shared baselines had identical latent surfaces, point data, areal data
+and location seeds. All 34 fits retained latent surfaces, predictor marginals and
+joint posterior configurations. Priors and numerical controls matched across fits
+Heterogeneous gamma scenarios correctly avoid assigning a scalar true gamma
+See output_audit.csv, shared_baseline_audit.csv and source_integrity.txt
+
+A post hoc audit of already-computed repeated baseline fits found that identical
+inputs and R seeds did not guarantee identical INLA optimization:
+  Melding baseline: mode status differed (1 versus 0), prediction RMS difference
+  was 0.00484 and the largest parameter-mean difference was 0.498 reference SD
+  PSmelding baseline differences were much smaller (prediction RMS <= 0.000012)
+No additional fits or selected retries were used for this audit
+Consider reusing baseline fit objects in production to avoid redundant optimization,
+after resolving the diagnostic issues; the main runner was not changed to do this
+See baseline_fit_repeatability.csv
+
+RESTART AND BATCHING
+Rerunning the isolated driver skipped all 34 completed fits and five CRPS checks
+No new fits started; all 34 fit files retained their sizes and modification times
+See restart_check.txt and ../restart_check.log
+This verifies completed-job restart behavior, not every possible crash state
+The main production runner still lacks automatic resume and replicate offsets
+Its --replicates=N option means replicates 1 through N, not N additional replicates
+Before a long production run, adopt an explicit restart/batching strategy without
+silently duplicating replicate IDs or overwriting prior outputs
+
+COMPUTATION AND STORAGE
+The 29-fit pilot used approximately 16.53 minutes and 1.758 GiB
+A linear extrapolation to 100 replicates gives approximately 27.55 hours and
+175.81 GiB for the current production mesh and 1000 posterior draws
+Approximately 27 GiB was free on the current volume at the final check
+Use a destination with sufficient space and headroom before launching production
+Retain latent surfaces and pointwise predictions as requested
+The estimate includes per-job test metadata overhead, is based on one replicate,
+and is not an upper bound. A finer production mesh would increase requirements
+See runtime_storage_estimate.csv
+
+ANALYSIS PLAN
+The prespecified plan is ../analysis_plan.txt
+It covers paired model comparisons, explicit failure/review counts, coverage and
+interval scores only for applicable true parameters, and Monte Carlo uncertainty
+Repeated shared baselines must not count as independent replicates
+With 100 independent replicates, estimated 95% coverage has approximate MCSE 0.022
+One-replicate paired differences are diagnostic only, not evidence of model superiority
+
+NEXT DECISIONS
+1. Resolve the flagged Hessian/mode behavior and assess stability of the saved
+   baseline and delta=2 cases before committing to production mesh settings
+2. Arrange storage with headroom and a reliable production restart strategy
+3. Freeze the final code/settings and retain the analysis plan before the full run
+No full 100-replicate study was started by this test

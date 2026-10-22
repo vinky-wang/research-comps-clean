@@ -1,0 +1,191 @@
+The legacy packages maptools, rgdal, and rgeos, underpinning this package
+will retire shortly. Please refer to R-spatial evolution reports on
+https://r-spatial.org/r/2023/05/15/evolution4.html for details.
+This package is now running under evolution status 0 
+sethyper signature
+function (model = NULL, section = NULL, hyper = NULL, initial = NULL, 
+    fixed = NULL, prior = NULL, param = NULL, debug = FALSE, 
+    hyper.default = NULL) 
+NULL
+
+Prior normalization
+$prior
+[1] "loggamma"
+
+$param
+[1] 1e+00 5e-05
+
+$hyperid
+[1] 65001
+attr(,"inla.read.only")
+[1] FALSE
+
+$name
+[1] "log precision"
+attr(,"inla.read.only")
+[1] FALSE
+
+$short.name
+[1] "prec"
+attr(,"inla.read.only")
+[1] FALSE
+
+$initial
+[1] 2.302585
+attr(,"inla.read.only")
+[1] FALSE
+
+$fixed
+[1] FALSE
+attr(,"inla.read.only")
+[1] FALSE
+
+$prior
+[1] "loggamma"
+attr(,"inla.read.only")
+[1] FALSE
+
+$param
+[1] 1e+00 5e-05
+attr(,"inla.read.only")
+[1] FALSE
+
+$to.theta
+function (x) 
+log(x)
+<bytecode: 0x13579c7f0>
+<environment: 0x135798ef0>
+attr(,"inla.read.only")
+[1] TRUE
+
+$from.theta
+function (x) 
+exp(x)
+<bytecode: 0x13579c908>
+<environment: 0x135798ef0>
+attr(,"inla.read.only")
+[1] TRUE
+
+
+Prior normalization
+$prior
+[1] "pc.prec"
+
+$param
+[1] 0.316 0.500
+
+$hyperid
+[1] 65001
+attr(,"inla.read.only")
+[1] FALSE
+
+$name
+[1] "log precision"
+attr(,"inla.read.only")
+[1] FALSE
+
+$short.name
+[1] "prec"
+attr(,"inla.read.only")
+[1] FALSE
+
+$initial
+[1] 2.302585
+attr(,"inla.read.only")
+[1] FALSE
+
+$fixed
+[1] FALSE
+attr(,"inla.read.only")
+[1] FALSE
+
+$prior
+[1] "pc.prec"
+attr(,"inla.read.only")
+[1] FALSE
+
+$param
+[1] 0.316 0.500
+attr(,"inla.read.only")
+[1] FALSE
+
+$to.theta
+function (x) 
+log(x)
+<bytecode: 0x13579c7f0>
+<environment: 0x135798ef0>
+attr(,"inla.read.only")
+[1] TRUE
+
+$from.theta
+function (x) 
+exp(x)
+<bytecode: 0x13579c908>
+<environment: 0x135798ef0>
+attr(,"inla.read.only")
+[1] TRUE
+
+
+Prior normalization
+$prior
+[1] "pc.prec"
+
+$param
+[1] 0.5 0.5
+
+$hyperid
+[1] 65001
+attr(,"inla.read.only")
+[1] FALSE
+
+$name
+[1] "log precision"
+attr(,"inla.read.only")
+[1] FALSE
+
+$short.name
+[1] "prec"
+attr(,"inla.read.only")
+[1] FALSE
+
+$initial
+[1] 2.302585
+attr(,"inla.read.only")
+[1] FALSE
+
+$fixed
+[1] FALSE
+attr(,"inla.read.only")
+[1] FALSE
+
+$prior
+[1] "pc.prec"
+attr(,"inla.read.only")
+[1] FALSE
+
+$param
+[1] 0.5 0.5
+attr(,"inla.read.only")
+[1] FALSE
+
+$to.theta
+function (x) 
+log(x)
+<bytecode: 0x13579c7f0>
+<environment: 0x135798ef0>
+attr(,"inla.read.only")
+[1] TRUE
+
+$from.theta
+function (x) 
+exp(x)
+<bytecode: 0x13579c908>
+<environment: 0x135798ef0>
+attr(,"inla.read.only")
+[1] TRUE
+
+
+u= 0.316 medianvar= 0.099856 meanvar= 0.4156744 P(var<.001)= 0.06701362 
+
+u= 0.5 medianvar= 0.25 meanvar= 1.040684 P(var<.001)= 0.04289146 
+Original: medianvar= 7.213475e-05 P(var<.001)= 0.9512294 

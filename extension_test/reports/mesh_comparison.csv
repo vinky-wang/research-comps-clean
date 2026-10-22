@@ -1,0 +1,6 @@
+"job_id","base_vertices","finer_vertices","prediction_mean_rms_change","joint_crps_change","prediction_screen_pass","crps_screen_pass"
+"strength_case_0003_Melding",1676,2832,0.0513549109526588,-0.00102547699412386,FALSE,TRUE
+"strength_case_0003_PSmelding",1676,2832,0.066067501303766,0.000262527441074245,FALSE,TRUE
+"spatial_gamma_case_0003_PSmelding",1676,2832,0.0461229869628579,-0.0026132655764643,TRUE,TRUE
+"clustering_case_0003_Melding",1676,2832,0.126543073669636,0.00873847025839164,FALSE,TRUE
+"clustering_case_0003_PSmelding",1676,2832,0.0516061639827134,-0.00817696716947375,FALSE,TRUE

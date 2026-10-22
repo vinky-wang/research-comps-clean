@@ -1,0 +1,9 @@
+EXTENSION TEST STATUS
+Pilot jobs recorded: 29 of 29
+Pilot jobs scored: 29
+Pilot review flags: 29
+Finer mesh jobs recorded: 5 of 5
+High-draw CRPS checks recorded: 5 of 5
+See the CSV reports for validity, mesh and CRPS screens, and resource estimates
+One replicate is a workflow/numerical pilot, not an estimate of simulation-study performance
+Review flags are retained; successful process exit is not a convergence certificate

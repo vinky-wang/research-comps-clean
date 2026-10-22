@@ -1,0 +1,14 @@
+Planned attempts: 36
+Recorded attempts: 36
+Successful fits: 36
+Successfully scored: 36
+Groups passing every prospective screen: 4 of 12
+
+All priors and starts are retained; no fit was selected to replace an original fit
+Do not compare log-posterior-mode values across priors; only within-prior spreads are used
+Matched prior contrasts retain initialization dependence; starts are not independent simulation replicates
+CRPS MCSE and paired contrast MCSE are approximate 10-batch proxies for 1000-draw Monte Carlo error
+The fitted clustering model omits U(s); its gamma is not interpreted as a correctly specified recovery target
+The group pass flag requires all 3 attempted fits, valid summaries, and every listed component screen
+Existing summary_valid and coherence_warning flags are respected; flagged numeric values remain in the comparisons
+A passing group is not a convergence guarantee; no production-prior recommendation is automated

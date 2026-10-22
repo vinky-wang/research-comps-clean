@@ -1,0 +1,2 @@
+"parameter","precision_prior","variance_prior","variance_density_mode","median","q025","q975","prob_lt_0p001","prob_lt_0p01","prob_lt_0p025"
+"noise_variance","Gamma(shape=1, rate=0.00005)","InverseGamma(shape=1, scale=0.00005)",2.5e-05,7.21347520444482e-05,1.35542515340908e-05,0.00197489451026036,0.951229424500714,0.995012479192682,0.998001998667333
