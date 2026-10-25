@@ -1,5 +1,0 @@
-phase,outer_tolerance,inner_tolerance,internal_opt,execution_or_reference_root
-original_default,0.005,0.001,True,/Users/vinky/research-comps-clean/production_checks/numerical_stability
-tight_tolerance,0.0001,0.001,True,/tmp/psmelding-tight-tolerance-20261022
-fixed_backend,0.0001,0.001,False,/tmp/psmelding-fixed-backend-20261022
-tight_inner,0.0001,1e-05,False,/tmp/psmelding-tight-inner-20261022

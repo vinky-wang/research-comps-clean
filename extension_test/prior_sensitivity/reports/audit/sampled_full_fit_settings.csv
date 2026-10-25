@@ -1,7 +1,0 @@
-"job_id","prior_id","model","mesh_vertices","actual_prior_arguments_correct","actual_prior_logs_correct","family_order_unchanged","mesh_unchanged","spatial_prior_mean_unchanged","spatial_prior_precision_unchanged","spatial_parameterization_unchanged","projectors_unchanged","integration_weights_unchanged","model_formula_unchanged","fixed_effect_controls_unchanged","single_thread_requested","gradient_h_005_logged","epsx_0001_logged","epsg_0001_logged"
-"baseline__Melding__A__area_0p001","A","Melding",2832,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
-"baseline__Melding__B__area_0p001","B","Melding",2832,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
-"baseline__Melding__C__area_0p001","C","Melding",2832,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
-"baseline__PSmelding__A__area_0p001","A","PSmelding",2832,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
-"baseline__PSmelding__B__area_0p001","B","PSmelding",2832,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
-"baseline__PSmelding__C__area_0p001","C","PSmelding",2832,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE

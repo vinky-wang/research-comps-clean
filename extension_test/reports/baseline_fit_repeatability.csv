@@ -1,6 +1,0 @@
-"model","reference_job","comparison_job","same_R_seed","reference_mode","comparison_mode","prediction_mean_rms_change","max_parameter_mean_shift_in_reference_sd"
-"Melding","strength_case_0003_Melding","areal_noise_case_0003_Melding",TRUE,1,0,0.0048404586459495,0.497765786629876
-"Melding","strength_case_0003_Melding","clustering_case_0001_Melding",TRUE,1,0,0.0048404586459495,0.497765786629876
-"PSmelding","strength_case_0003_PSmelding","areal_noise_case_0003_PSmelding",TRUE,0,0,1.84466974807279e-06,1.48312198024965e-05
-"PSmelding","strength_case_0003_PSmelding","clustering_case_0001_PSmelding",TRUE,0,0,1.00472914459403e-05,4.27779027664939e-05
-"PSmelding","strength_case_0003_PSmelding","spatial_gamma_case_0001_PSmelding",TRUE,0,0,1.16037127791373e-05,3.87117122414835e-05

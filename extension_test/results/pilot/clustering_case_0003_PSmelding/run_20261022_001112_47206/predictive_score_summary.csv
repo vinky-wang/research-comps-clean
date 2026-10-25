@@ -1,8 +1,0 @@
-"experiment","rho","I","J","sampling_id","sampling_type","gamma","gamma_L","gamma_R","split_x","delta","rho_U","sigma2_U","log_intensity_phi_cor","noise_id","tau2_s","tau2_B","model","region","metric","n_requested","n_scored","n_valid","n_invalid","n_flagged","mean","mcse","lower025","upper975"
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","CRPS_Z_gaussian",1,1,1,0,1,0.43309260976901,NA,0.43309260976901,0.43309260976901
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","CRPS_Z_joint",1,1,1,0,1,0.433198879905193,NA,0.433198879905193,0.433198879905193
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","MAE",1,1,1,0,1,0.576855660799335,NA,0.576855660799335,0.576855660799335
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","MSE",1,1,1,0,1,0.533852076431541,NA,0.533852076431541,0.533852076431541
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","WD_paper",1,1,1,0,1,0.550062912943947,NA,0.550062912943947,0.550062912943947
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","Z_coverage95",1,1,1,0,1,0.727599999999999,NA,0.727599999999999,0.727599999999999
-"clustering",0.2,100,25,"delta_2","independent_field",1,NA,NA,NA,2,0.2,1,0.447213595499958,"equal",0.1,0.1,"PSmelding","all","Z_IS95",1,1,1,0,1,5.51140281922784,NA,5.51140281922784,5.51140281922784

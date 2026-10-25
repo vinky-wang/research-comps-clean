@@ -1,3 +1,0 @@
-"phase","vertices","triangles","cells_per_area","max_abs_truth_reconstruction_error","equal_min_vertex_count","equal_max_vertex_count","equal_max_row_sum_error","shared_boundary_vertices","shared_boundary_memberships","exact_max_row_sum_error","exact_max_linear_function_error","exact_max_coverage_error","exact_nonzero_count","outside_vertices_with_exact_weight","outside_total_exact_weight"
-"pilot",1676,3302,100,6.66133814775094e-16,36,44,8.88178419700125e-16,0,0,8.88178419700125e-16,6.66133814775094e-16,3.46944695195361e-17,1721,134,0.554695928432073
-"finer_mesh",2832,5611,100,6.66133814775094e-16,65,76,1.99840144432528e-15,0,0,1.11022302462516e-15,8.88178419700125e-16,5.55111512312578e-17,2707,181,0.363539046652427

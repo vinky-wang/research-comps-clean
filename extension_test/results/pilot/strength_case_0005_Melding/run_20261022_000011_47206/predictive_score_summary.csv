@@ -1,8 +1,0 @@
-"experiment","rho","I","J","sampling_id","sampling_type","gamma","gamma_L","gamma_R","split_x","delta","rho_U","sigma2_U","log_intensity_phi_cor","noise_id","tau2_s","tau2_B","model","region","metric","n_requested","n_scored","n_valid","n_invalid","n_flagged","mean","mcse","lower025","upper975"
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","CRPS_Z_gaussian",1,1,1,0,1,0.362070558177468,NA,0.362070558177468,0.362070558177468
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","CRPS_Z_joint",1,1,1,0,1,0.364483494365389,NA,0.364483494365389,0.364483494365389
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","MAE",1,1,1,0,1,0.514038769744939,NA,0.514038769744939,0.514038769744939
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","MSE",1,1,1,0,1,0.433702840753071,NA,0.433702840753071,0.433702840753071
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","WD_paper",1,1,1,0,1,0.566651069282715,NA,0.566651069282715,0.566651069282715
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","Z_coverage95",1,1,1,0,1,0.95,NA,0.95,0.95
-"strength",0.2,100,25,"gamma_2","constant",2,NA,NA,NA,0,NA,NA,NA,"equal",0.1,0.1,"Melding","all","Z_IS95",1,1,1,0,1,2.97464909527581,NA,2.97464909527581,2.97464909527581

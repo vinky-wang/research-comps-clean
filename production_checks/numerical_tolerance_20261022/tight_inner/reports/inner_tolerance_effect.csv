@@ -1,7 +1,0 @@
-"dataset","start_area","model","prior_id","source_id","job_id","parameter_summaries_identical","parameter_max_absolute_difference","mode_theta_identical","mode_theta_max_absolute_difference","mode_x_identical","mode_x_max_absolute_difference","covariance_identical","covariance_max_absolute_difference","prediction_mean_identical","prediction_mean_max_absolute_difference","prediction_sd_identical","log_mode_difference"
-"baseline",0.001,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p001",TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0
-"clustering_delta2",0.001,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p001",TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0
-"baseline",0.1,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p1",TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0
-"clustering_delta2",0.1,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p1",TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0
-"baseline",0.4,"PSmelding","B","strength_case_0003_PSmelding","baseline__PSmelding__B__area_0p4",TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0
-"clustering_delta2",0.4,"Melding","B","clustering_case_0003_Melding","clustering_delta2__Melding__B__area_0p4",TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0,TRUE,0

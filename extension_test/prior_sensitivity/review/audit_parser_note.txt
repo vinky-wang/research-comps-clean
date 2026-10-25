@@ -1,1 +1,0 @@
-The first audit parsed comma-separated Gamma-prior log parameters correctly, but PC-prior logs separate values with spaces. The audit parser now accepts both delimiters. Saved controls already matched all requested priors. No fits or posterior results were changed; the corrected read-only audit is rerun.

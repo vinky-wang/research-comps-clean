@@ -1,3 +1,0 @@
-"prior_id","max_cdf_error","max_quantile_error","max_log10_density_error","check_passed"
-"B",1.11022302462516e-16,2.16840434497101e-19,3.33066907387547e-16,TRUE
-"C",1.11022302462516e-16,4.87890977618477e-19,2.22044604925031e-16,TRUE

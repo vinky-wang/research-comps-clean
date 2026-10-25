@@ -1,2 +1,0 @@
-All seven main R scripts match the diagnostic launch SHA256 values
-No production source or settings changed during this numerical follow-up
