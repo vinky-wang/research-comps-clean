@@ -1,5 +1,5 @@
 source("functions/generate_data.R")
-source("functions/make_summary.R")
+source("functions/create_summary.R")
 source("functions/fit_models.R")
 
 
