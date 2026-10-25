@@ -121,7 +121,7 @@ create_projections <- function(data, mesh, areal_method = c("vertices", "grid"))
 # Create Gaussian observation stack
 create_gaussian_stack <- function(data, projections, spde,
                                   include_areas = TRUE, preferential = FALSE,
-                                  separate_noise = FALSE) {
+                                  separate_noise = TRUE) {
   # Format response for one, two, or three likelihoods
   make_response <- function(values, tag) {
     n = length(values)
@@ -290,7 +290,7 @@ create_mesh_dual_weights <- function(mesh) {
 # Create preferential sampling stack
 create_point_process_stack <- function(
     data, projections, spde, mesh = NULL,
-    separate_noise = FALSE,
+    separate_noise = TRUE,
     point_process_method = c("mesh_dual", "grid_counts"),
     integration_weights = NULL
 ) {
@@ -410,7 +410,7 @@ fit_model <- function(
     prior_gamma = c(1, 10),
     prior_noise = NULL,
     prior_noise_B = prior_noise,
-    separate_noise = FALSE,
+    separate_noise = TRUE,
     point_process_method = c("mesh_dual", "grid_counts"),
     integration_weights = NULL,
     fixed_precision = 0.001,
@@ -560,7 +560,7 @@ fit_models <- function(
     prior_gamma = c(1, 10),
     prior_noise = NULL,
     prior_noise_B = prior_noise,
-    separate_noise = FALSE,
+    separate_noise = TRUE,
     point_process_method = c("mesh_dual", "grid_counts"),
     areal_method = c("vertices", "grid"),
     fixed_precision = 0.001,
@@ -773,4 +773,28 @@ fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
   rownames(fit_log) <- NULL
   
   return(list(results = results, log = fit_log))
+}
+
+
+# Save one replication immediately after fitting --------------------------------
+
+save_replication <- function(data, results, log, output_dir, replication) {
+  fits_dir <- file.path(output_dir, "fits")
+  log_dir <- file.path(output_dir, "log")
+  
+  dir.create(fits_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(log_dir, recursive = TRUE, showWarnings = FALSE)
+  
+  filename <- sprintf("rep_%03d.rds", replication)
+  
+  # Save diagnostics first, so they remain available if saving the fit fails
+  saveRDS(log, file = file.path(log_dir, filename))
+  
+  # Keep the log inside the fit object for compatibility with existing code
+  saveRDS(
+    list(data = data, results = results, log = log),
+    file = file.path(fits_dir, filename)
+  )
+  
+  message("  Saved replication ", replication, " to: ", output_dir)
 }

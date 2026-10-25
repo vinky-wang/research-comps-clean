@@ -423,11 +423,23 @@ evaluate_replication <- function(results, truth, tau2_s = 0.1, gamma_true = 1) {
 summarize_replications <- function(metrics, gamma_true = 1) {
   # Monte Carlo standard error across independent replications
   mcse <- function(x) {
+    if (length(x) < 2L) {
+      return(NA_real_)
+    }
+    
     return(stats::sd(x) / sqrt(length(x)))
   }
   
   # Average predictive performance
   metric_names <- c("mse", "mae", "wd2", "bias", "coverage", "interval_score")
+  
+  prediction_n <- stats::aggregate(
+    metrics[, "mse", drop = FALSE],
+    by = list(model = metrics$model),
+    FUN = length
+  )
+  
+  names(prediction_n)[2] <- "n_replications"
   
   prediction_mean <- stats::aggregate(
     metrics[, metric_names, drop = FALSE],
@@ -477,51 +489,62 @@ summarize_replications <- function(metrics, gamma_true = 1) {
   
   # Recovery of gamma for preferential sampling models
   ps_metrics <- metrics[!is.na(metrics$gamma_mean), , drop = FALSE]
+  gamma_summary <- NULL
+  gamma_mcse <- NULL
   
-  gamma_summary <- do.call(rbind, lapply(
-    split(ps_metrics, ps_metrics$model),
-    function(x) {
-      data.frame(
-        model = x$model[1],
-        gamma_mean = mean(x$gamma_mean),
-        gamma_bias = mean(x$gamma_mean - gamma_true),
-        gamma_rmse = sqrt(mean((x$gamma_mean - gamma_true)^2)),
-        gamma_coverage = mean(x$gamma_coverage),
-        gamma_interval_score = mean(x$gamma_interval_score),
-        mean_gamma_sd = mean(x$gamma_sd)
-      )
-    }
-  ))
-  
-  gamma_mcse <- do.call(rbind, lapply(
-    split(ps_metrics, ps_metrics$model),
-    function(x) {
-      gamma_sq_error <- (x$gamma_mean - gamma_true)^2
-      gamma_rmse <- sqrt(mean(gamma_sq_error))
-      
-      # Delta-method MCSE for gamma RMSE
-      gamma_rmse_mcse <- if (gamma_rmse > 0) {
-        mcse(gamma_sq_error) / (2 * gamma_rmse)
-      } else {
-        NA_real_
+  # A constant gamma has no true value under spatially varying gamma(s)
+  if (is.finite(gamma_true) && nrow(ps_metrics) > 0L) {
+    gamma_summary <- do.call(rbind, lapply(
+      split(ps_metrics, ps_metrics$model),
+      function(x) {
+        data.frame(
+          model = x$model[1],
+          gamma_mean = mean(x$gamma_mean),
+          gamma_bias = mean(x$gamma_mean - gamma_true),
+          gamma_rmse = sqrt(mean((x$gamma_mean - gamma_true)^2)),
+          gamma_coverage = mean(x$gamma_coverage),
+          gamma_interval_score = mean(x$gamma_interval_score),
+          mean_gamma_sd = mean(x$gamma_sd)
+        )
       }
-      
-      data.frame(
-        model = x$model[1],
-        gamma_mean = mcse(x$gamma_mean),
-        gamma_bias = mcse(x$gamma_mean - gamma_true),
-        gamma_rmse = gamma_rmse_mcse,
-        gamma_coverage = mcse(x$gamma_coverage),
-        gamma_interval_score = mcse(x$gamma_interval_score),
-        mean_gamma_sd = mcse(x$gamma_sd)
-      )
-    }
-  ))
+    ))
+    
+    gamma_mcse <- do.call(rbind, lapply(
+      split(ps_metrics, ps_metrics$model),
+      function(x) {
+        gamma_sq_error <- (x$gamma_mean - gamma_true)^2
+        gamma_rmse <- sqrt(mean(gamma_sq_error))
+        
+        # Delta-method MCSE for gamma RMSE
+        gamma_rmse_mcse <- if (gamma_rmse > 0) {
+          mcse(gamma_sq_error) / (2 * gamma_rmse)
+        } else {
+          NA_real_
+        }
+        
+        data.frame(
+          model = x$model[1],
+          gamma_mean = mcse(x$gamma_mean),
+          gamma_bias = mcse(x$gamma_mean - gamma_true),
+          gamma_rmse = gamma_rmse_mcse,
+          gamma_coverage = mcse(x$gamma_coverage),
+          gamma_interval_score = mcse(x$gamma_interval_score),
+          mean_gamma_sd = mcse(x$gamma_sd)
+        )
+      }
+    ))
+  }
   
-  rownames(gamma_summary) <- NULL
-  rownames(gamma_mcse) <- NULL
+  if (!is.null(gamma_summary)) {
+    rownames(gamma_summary) <- NULL
+  }
+  
+  if (!is.null(gamma_mcse)) {
+    rownames(gamma_mcse) <- NULL
+  }
   
   return(list(
+    prediction_n = prediction_n,
     prediction_mean = prediction_mean,
     prediction_sd = prediction_sd,
     prediction_mcse = prediction_mcse,
@@ -531,5 +554,220 @@ summarize_replications <- function(metrics, gamma_true = 1) {
     prediction_diagnostics_mcse = prediction_diagnostics_mcse,
     gamma = gamma_summary,
     gamma_mcse = gamma_mcse
+  ))
+}
+
+
+# Summarize fitting outcomes ---------------------------------------------------
+
+summarize_fit_log <- function(fit_log, models = unique(fit_log$model)) {
+  comparison <- lapply(models, function(name) {
+    x <- fit_log[fit_log$model == name, , drop = FALSE]
+    
+    # Reused fits are not additional fitting attempts
+    reused <- if ("reused" %in% names(x)) {
+      !is.na(x$reused) & x$reused
+    } else {
+      rep(FALSE, nrow(x))
+    }
+    
+    attempted <- x[!reused, , drop = FALSE]
+    
+    data.frame(
+      model = name,
+      attempted = nrow(attempted),
+      included = sum(attempted$included),
+      warnings = sum(attempted$status == "warning"),
+      invalid = sum(attempted$status == "invalid"),
+      errors = sum(attempted$status == "error"),
+      reused = sum(reused),
+      mean_elapsed_sec = if (nrow(attempted) > 0L) {
+        mean(attempted$elapsed_sec)
+      } else {
+        NA_real_
+      }
+    )
+  })
+  
+  comparison <- do.call(rbind, comparison)
+  rownames(comparison) <- NULL
+  
+  return(comparison)
+}
+
+
+# Summarize a posterior marginal ----------------------------------------------
+
+summarize_marginal <- function(marginal) {
+  if (is.null(marginal)) {
+    stop("Posterior marginal is unavailable.")
+  }
+  
+  posterior_mean <- INLA::inla.emarginal(function(x) x, marginal)
+  posterior_second <- INLA::inla.emarginal(function(x) x^2, marginal)
+  quantiles <- INLA::inla.qmarginal(c(0.025, 0.975), marginal)
+  
+  return(c(
+    mean = posterior_mean,
+    sd = sqrt(max(0, posterior_second - posterior_mean^2)),
+    q025 = quantiles[1],
+    q975 = quantiles[2]
+  ))
+}
+
+
+# Evaluate parameter recovery for one simulation replication ------------------
+
+evaluate_parameter_replication <- function(results, truth, separate_noise = TRUE) {
+  comparison <- lapply(names(results$models), function(name) {
+    fit <- results$models[[name]]$fit
+    hyperpar <- fit$marginals.hyperpar
+    
+    if (is.null(hyperpar)) {
+      stop("Posterior hyperparameter marginals are missing for ", name, ".")
+    }
+    
+    # Collect posterior marginals on the parameter scales of interest
+    marginals <- list()
+    
+    if ("Beta for j" %in% names(hyperpar)) {
+      marginals$gamma <- hyperpar[["Beta for j"]]
+    }
+    
+    # Transform Gaussian observation precisions into variances
+    precision_names <- grep(
+      "^Precision for .*Gaussian",
+      names(hyperpar),
+      value = TRUE,
+      ignore.case = TRUE
+    )
+    
+    if (length(precision_names) < 1L) {
+      stop("Gaussian observation precision is missing for ", name, ".")
+    }
+    
+    marginals$tau2_s <- INLA::inla.tmarginal(
+      function(x) 1 / x,
+      hyperpar[[precision_names[1]]]
+    )
+    
+    if (separate_noise && name %in% c("melding", "ps_melding")) {
+      if (length(precision_names) < 2L) {
+        stop("Areal observation precision is missing for ", name, ".")
+      }
+      
+      marginals$tau2_B <- INLA::inla.tmarginal(
+        function(x) 1 / x,
+        hyperpar[[precision_names[2]]]
+      )
+    }
+    
+    # Transform SPDE parameters into nominal range and variance
+    if (!is.null(results$spde)) {
+      spde_result <- INLA::inla.spde2.result(
+        inla = fit,
+        name = "i",
+        spde = results$spde,
+        do.transform = TRUE
+      )
+      
+      marginals$rho <- spde_result$marginals.range.nominal[[1]]
+      marginals$sigma2 <- spde_result$marginals.variance.nominal[[1]]
+    }
+    
+    # Only evaluate parameters that exist in the fitted model
+    parameters <- intersect(names(marginals), names(truth))
+    parameters <- parameters[is.finite(truth[parameters])]
+    
+    do.call(rbind, lapply(parameters, function(parameter) {
+      posterior <- summarize_marginal(marginals[[parameter]])
+      true <- as.numeric(truth[[parameter]])
+      
+      data.frame(
+        model = name,
+        parameter = parameter,
+        true = true,
+        estimate = posterior[["mean"]],
+        posterior_sd = posterior[["sd"]],
+        q025 = posterior[["q025"]],
+        q975 = posterior[["q975"]],
+        bias = posterior[["mean"]] - true,
+        squared_error = (posterior[["mean"]] - true)^2,
+        coverage = as.numeric(true >= posterior[["q025"]] &
+                                true <= posterior[["q975"]]),
+        interval_score = interval_score(
+          posterior[["q025"]], posterior[["q975"]], true
+        )
+      )
+    }))
+  })
+  
+  comparison <- do.call(rbind, comparison)
+  
+  if (!is.null(comparison)) {
+    rownames(comparison) <- NULL
+  }
+  
+  return(comparison)
+}
+
+
+# Summarize parameter recovery across replications -----------------------------
+
+summarize_parameter_recovery <- function(metrics) {
+  if (is.null(metrics) || nrow(metrics) == 0L) {
+    return(list(parameter_mean = NULL, parameter_mcse = NULL))
+  }
+  
+  mcse <- function(x) {
+    if (length(x) < 2L) {
+      return(NA_real_)
+    }
+    
+    return(stats::sd(x) / sqrt(length(x)))
+  }
+  
+  groups <- split(
+    metrics,
+    list(metrics$model, metrics$parameter),
+    drop = TRUE
+  )
+  
+  parameter_mean <- do.call(rbind, lapply(groups, function(x) {
+    data.frame(
+      model = x$model[1],
+      parameter = x$parameter[1],
+      true = x$true[1],
+      n_replications = nrow(x),
+      estimate = mean(x$estimate),
+      bias = mean(x$bias),
+      rmse = sqrt(mean(x$squared_error)),
+      coverage = mean(x$coverage),
+      interval_score = mean(x$interval_score),
+      mean_posterior_sd = mean(x$posterior_sd)
+    )
+  }))
+  
+  parameter_mcse <- do.call(rbind, lapply(groups, function(x) {
+    rmse <- sqrt(mean(x$squared_error))
+    
+    data.frame(
+      model = x$model[1],
+      parameter = x$parameter[1],
+      estimate = mcse(x$estimate),
+      bias = mcse(x$bias),
+      rmse = if (rmse > 0) mcse(x$squared_error) / (2 * rmse) else NA_real_,
+      coverage = mcse(x$coverage),
+      interval_score = mcse(x$interval_score),
+      mean_posterior_sd = mcse(x$posterior_sd)
+    )
+  }))
+  
+  rownames(parameter_mean) <- NULL
+  rownames(parameter_mcse) <- NULL
+  
+  return(list(
+    parameter_mean = parameter_mean,
+    parameter_mcse = parameter_mcse
   ))
 }
