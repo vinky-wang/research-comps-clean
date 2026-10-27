@@ -29,7 +29,7 @@ n_replications = 100L
 replications = seq_len(50L)
 simulation_seeds = 123L + seq_len(n_replications) - 1L
 
-output_dir = file.path("results", "extensions_final")
+output_dir = file.path("results", "extensions")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 
