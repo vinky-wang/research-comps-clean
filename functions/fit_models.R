@@ -44,7 +44,8 @@ create_spde <- function(mesh, prior_range = NULL, prior_sigma = NULL) {
 
 
 # Create projection matrices
-create_projections <- function(data, mesh, areal_method = c("vertices", "grid")) {
+create_projections <- function(data, mesh, areal_method = c("vertices", 
+                                                            "grid")) {
   # Allow previous method name
   if (identical(areal_method, "mesh_vertices")) {
     areal_method = "vertices"
@@ -639,6 +640,19 @@ fit_models <- function(
 # Fit models with logging 
 # Fit each model separately so one failure does not stop the others
 fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
+  # Realized measurement-error MSE
+  realized_tau2_s <- if ("true" %in% names(data$points)) {
+    mean((data$points$value - data$points$true)^2)
+  } else {
+    NA_real_
+  }
+  
+  realized_tau2_B <- if ("true" %in% names(data$areas)) {
+    mean((data$areas$value - data$areas$true)^2)
+  } else {
+    NA_real_
+  }
+  
   attempts <- lapply(models, function(model) {
     message("  Fitting ", model)
     
@@ -683,6 +697,12 @@ fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
     gamma_present <- FALSE
     inla_sec <- NA_real_
     
+    # Initialize posterior parameter summaries
+    tau2_s_median <- NA_real_
+    tau2_B_median <- NA_real_
+    gamma_median <- NA_real_
+    n_gaussian_precisions <- 0L
+    
     if (!is.null(result)) {
       fit <- result$models[[model]]$fit
       pred <- result$models[[model]]$prediction
@@ -706,10 +726,54 @@ fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
       if ("Total" %in% names(fit$cpu.used)) {
         inla_sec <- as.numeric(fit$cpu.used[["Total"]])
       }
+      
+      # Extract posterior hyperparameter medians
+      hyper <- fit$summary.hyperpar
+      
+      # Identify Gaussian observation precisions
+      precision_rows <- grep(
+        "^Precision for the Gaussian",
+        rownames(hyper),
+        ignore.case = TRUE
+      )
+      
+      n_gaussian_precisions <- length(precision_rows)
+      
+      # Point measurement-error variance
+      if (length(precision_rows) >= 1L) {
+        precision_s <- hyper[precision_rows[1], "0.5quant"]
+        
+        if (is.finite(precision_s) && precision_s > 0) {
+          tau2_s_median <- 1 / precision_s
+        }
+      }
+      
+      # Areal measurement-error variance
+      # Available separately when two Gaussian likelihoods are fitted
+      if (length(precision_rows) >= 2L) {
+        precision_B <- hyper[precision_rows[2], "0.5quant"]
+        
+        if (is.finite(precision_B) && precision_B > 0) {
+          tau2_B_median <- 1 / precision_B
+        }
+      }
+      
+      # Preferentiality coefficient
+      if (gamma_present) {
+        gamma_median <- hyper["Beta for j", "0.5quant"]
+      }
     }
     
     # Preferential sampling models must have a gamma estimate
-    gamma_valid <- !(model %in% c("ps_melding", "ps_geo")) || gamma_present
+    gamma_valid <- !(model %in% c("ps_melding", "ps_geo")) ||
+      gamma_present
+    
+    # Flag near-zero areal variance estimates
+    near_zero_tau2_B <- if (is.finite(tau2_B_median)) {
+      tau2_B_median < 0.001
+    } else {
+      NA
+    }
     
     # Classify fitting outcome
     status <- if (is.null(result)) {
@@ -731,15 +795,34 @@ fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
       model = model,
       status = status,
       included = status %in% c("ok", "warning"),
+      
+      # Fitting time
       elapsed_sec = elapsed_sec,
       inla_sec = inla_sec,
       mesh_vertices = mesh$n,
+      
+      # Warnings and numerical checks
       n_warnings = length(warnings),
       n_messages = length(messages),
       predictions_finite = predictions_finite,
       intervals_valid = intervals_valid,
       hyperparameters_finite = hyperparameters_finite,
       gamma_present = gamma_present,
+      
+      # Posterior parameter summaries
+      n_gaussian_precisions = n_gaussian_precisions,
+      tau2_s_median = tau2_s_median,
+      tau2_B_median = tau2_B_median,
+      gamma_median = gamma_median,
+      
+      # Realized measurement-error MSE
+      realized_tau2_s = realized_tau2_s,
+      realized_tau2_B = realized_tau2_B,
+      
+      # Diagnostic flag
+      near_zero_tau2_B = near_zero_tau2_B,
+      
+      # Error and warning details
       error_message = error_message,
       warning_text = paste(unique(warnings), collapse = " | "),
       message_text = paste(messages, collapse = " | ")
@@ -751,7 +834,11 @@ fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
   names(attempts) <- models
   
   # Retain successful and warning-bearing fits for evaluation
-  included <- vapply(attempts, function(x) x$log$included, logical(1))
+  included <- vapply(
+    attempts,
+    function(x) x$log$included,
+    logical(1)
+  )
   
   fits <- lapply(models[included], function(model) {
     attempts[[model]]$result$models[[model]]
@@ -761,13 +848,18 @@ fit_models_logged <- function(data, models, mesh, replication, seed, ...) {
   
   # Retain the SPDE specification for parameter recovery
   spde <- NULL
+  
   if (any(included)) {
     first_model <- models[which(included)[1]]
     spde <- attempts[[first_model]]$result$spde
   }
   
   # Combine valid models for prediction evaluation
-  results <- list(models = fits, mesh = mesh, spde = spde)
+  results <- list(
+    models = fits,
+    mesh = mesh,
+    spde = spde
+  )
   
   fit_log <- do.call(rbind, lapply(attempts, function(x) x$log))
   rownames(fit_log) <- NULL

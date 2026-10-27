@@ -5,29 +5,37 @@ source("functions/fit_models.R")
 # Set up extension scenarios ---------------------------------------------------
 
 # Preferential sampling mechanisms (constant-gamma baseline omitted)
-scenarios <- c("spatially_varying", "independent_field")
+scenarios = c("spatially_varying", "independent_field")
 
 # Areal measurement noise (baseline tau2_B = 0.1 omitted)
-tau2_B_values <- c(0.025, 0.05, 0.2, 0.4)
+tau2_B_values = c(0.025, 0.05, 0.2, 0.4)
 
 # Preferential sampling strength (baseline gamma = 1 omitted)
-gamma_values <- c(0, 0.5, 1.5, 2)
+gamma_values = c(0, 0.5, 1.5, 2)
 
-# Keep the same mesh, models, and fitting specifications
-model_names <- c("ps_melding", "melding", "ps_geo")
-noise_models <- c("ps_melding", "melding")
-mesh <- create_mesh()
+# Final fitting specifications from prerun_extensions.R
+model_names = c("ps_melding", "melding", "ps_geo")
+noise_models = c("ps_melding", "melding")
+mesh_max_edge = c(0.035, 0.175)
+mesh = create_mesh(max_edge = mesh_max_edge)
+point_process_method = "grid_counts"
+areal_method = "grid"
+separate_noise = TRUE
+prior_gamma = c(1, 1)
+prior_noise = NULL
+prior_noise_B = c(1, 0.05)
 
-n_replications <- 2L
-simulation_seeds <- 123L + seq_len(n_replications) - 1L
+n_replications = 100L
+replications = seq_len(n_replications)
+simulation_seeds = 123L + seq_len(n_replications) - 1L
 
-output_dir <- file.path("results", "extensions")
+output_dir = file.path("results", "extensions_final")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 
 # Record simulation settings before fitting -----------------------------------
 
-run_info <- list(
+run_info = list(
   r_version = R.version.string,
   inla_version = INLA::inla.version("version"),
   session_info = utils::sessionInfo(),
@@ -57,14 +65,41 @@ run_info <- list(
     scenario = "constant",
     gamma_values = gamma_values
   ),
+  mesh_max_edge = mesh_max_edge,
   mesh_vertices = mesh$n,
-  point_process_method = "mesh_dual",
-  areal_method = "vertices",
-  separate_noise = TRUE,
-  prior_gamma = c(1, 10)
+  point_process_method = point_process_method,
+  areal_method = areal_method,
+  separate_noise = separate_noise,
+  prior_gamma = prior_gamma,
+  prior_noise = prior_noise,
+  prior_noise_B = prior_noise_B
 )
 
-saveRDS(run_info, file = file.path(output_dir, "run_info.rds"))
+run_info_path = file.path(output_dir, "run_info.rds")
+
+# Do not mix fits from different specifications in the same directory
+if (file.exists(run_info_path)) {
+  previous_info = readRDS(run_info_path)
+  stopifnot(
+    identical(previous_info$n_replications, n_replications),
+    identical(previous_info$simulation_seeds, simulation_seeds),
+    identical(previous_info$generating, run_info$generating),
+    identical(previous_info$scenarios, scenarios),
+    identical(previous_info$measurement_noise, run_info$measurement_noise),
+    identical(previous_info$gamma_strength, run_info$gamma_strength),
+    identical(previous_info$models, model_names),
+    identical(previous_info$mesh_max_edge, mesh_max_edge),
+    identical(previous_info$mesh_vertices, mesh$n),
+    identical(previous_info$point_process_method, point_process_method),
+    identical(previous_info$areal_method, areal_method),
+    identical(previous_info$separate_noise, separate_noise),
+    identical(previous_info$prior_gamma, prior_gamma),
+    identical(previous_info$prior_noise, prior_noise),
+    identical(previous_info$prior_noise_B, prior_noise_B)
+  )
+} else {
+  saveRDS(run_info, file = run_info_path)
+}
 
 
 # Vary preferential sampling mechanisms ---------------------------------------
@@ -72,12 +107,20 @@ saveRDS(run_info, file = file.path(output_dir, "run_info.rds"))
 for (scenario in scenarios) {
   message("Scenario: ", scenario)
   
-  scenario_dir <- file.path(output_dir, scenario)
+  scenario_dir = file.path(output_dir, scenario)
   
-  for (replication in seq_len(n_replications)) {
+  for (replication in replications) {
     message("  Replication ", replication, " of ", n_replications)
     
-    simulated <- generate_data(
+    fit_path = file.path(
+      scenario_dir, "fits", sprintf("rep_%03d.rds", replication)
+    )
+    log_path = file.path(
+      scenario_dir, "log", sprintf("rep_%03d.rds", replication)
+    )
+    if (file.exists(fit_path) && file.exists(log_path)) next
+    
+    simulated = generate_data(
       rho = 0.2,
       gamma = 1,
       I = 100,
@@ -91,16 +134,18 @@ for (scenario in scenarios) {
       rho_psi = 0.2
     )
     
-    logged <- fit_models_logged(
+    logged = fit_models_logged(
       data = simulated,
       models = model_names,
       mesh = mesh,
       replication = replication,
       seed = simulation_seeds[replication],
-      point_process_method = "mesh_dual",
-      areal_method = "vertices",
-      separate_noise = TRUE,
-      prior_gamma = c(1, 10)
+      point_process_method = point_process_method,
+      areal_method = areal_method,
+      separate_noise = separate_noise,
+      prior_gamma = prior_gamma,
+      prior_noise = prior_noise,
+      prior_noise_B = prior_noise_B
     )
     
     # Save fits and log before starting the next replication
@@ -119,21 +164,21 @@ for (scenario in scenarios) {
 
 # Vary areal measurement noise ------------------------------------------------
 
-noise_output_dir <- file.path(output_dir, "measurement_noise")
+noise_output_dir = file.path(output_dir, "measurement_noise")
 
 # Fit PS geo once at the first noise level, then reuse it at the others
-for (replication in seq_len(n_replications)) {
+for (replication in replications) {
   message("Measurement-noise replication ", replication, " of ", n_replications)
   
-  seed <- simulation_seeds[replication]
-  reference <- NULL
-  logged_geo <- NULL
+  seed = simulation_seeds[replication]
+  reference = NULL
+  logged_geo = NULL
   
   for (k in seq_along(tau2_B_values)) {
-    tau2_B <- tau2_B_values[k]
+    tau2_B = tau2_B_values[k]
     message("  Areal noise variance: ", tau2_B)
     
-    simulated <- generate_data(
+    simulated = generate_data(
       rho = 0.2,
       gamma = 1,
       I = 100,
@@ -145,7 +190,7 @@ for (replication in seq_len(n_replications)) {
     )
     
     if (k == 1L) {
-      reference <- simulated
+      reference = simulated
     } else {
       # Changing areal noise must leave the point data and truth unchanged
       stopifnot(
@@ -154,50 +199,80 @@ for (replication in seq_len(n_replications)) {
       )
     }
     
-    models_to_fit <- if (k == 1L) model_names else noise_models
+    condition_dir = file.path(noise_output_dir, paste0("tau2_B_", tau2_B))
+    fit_path = file.path(
+      condition_dir, "fits", sprintf("rep_%03d.rds", replication)
+    )
+    log_path = file.path(
+      condition_dir, "log", sprintf("rep_%03d.rds", replication)
+    )
     
-    logged <- fit_models_logged(
+    # Resume completed fits; load the first PS geo fit for later noise levels
+    if (file.exists(fit_path) && file.exists(log_path)) {
+      if (k == 1L) {
+        saved = readRDS(fit_path)
+        geo_log = subset(saved$log, model == "ps_geo")
+        geo_log$reused = NULL
+        geo_log$tau2_B = NULL
+        logged_geo = list(
+          models = saved$results$models[
+            names(saved$results$models) == "ps_geo"
+          ],
+          spde = saved$results$spde,
+          log = geo_log
+        )
+        rm(saved, geo_log)
+      }
+      rm(simulated)
+      next
+    }
+    
+    models_to_fit = if (k == 1L) model_names else noise_models
+    
+    logged = fit_models_logged(
       data = simulated,
       models = models_to_fit,
       mesh = mesh,
       replication = replication,
       seed = seed,
-      point_process_method = "mesh_dual",
-      areal_method = "vertices",
-      separate_noise = TRUE,
-      prior_gamma = c(1, 10)
+      point_process_method = point_process_method,
+      areal_method = areal_method,
+      separate_noise = separate_noise,
+      prior_gamma = prior_gamma,
+      prior_noise = prior_noise,
+      prior_noise_B = prior_noise_B
     )
     
     if (k == 1L) {
       # Retain the point-only fit for subsequent noise levels
-      logged_geo <- list(
-        models = logged$results$models["ps_geo"],
+      logged_geo = list(
+        models = logged$results$models[
+          names(logged$results$models) == "ps_geo"
+        ],
         spde = logged$results$spde,
         log = logged$log[logged$log$model == "ps_geo", , drop = FALSE]
       )
       
-      results <- logged$results
-      fit_log <- logged$log
-      fit_log$reused <- FALSE
+      results = logged$results
+      fit_log = logged$log
+      fit_log$reused = FALSE
     } else {
-      results <- list(
+      results = list(
         models = c(logged$results$models, logged_geo$models),
         mesh = mesh,
         spde = logged$results$spde
       )
       
       if (is.null(results$spde)) {
-        results$spde <- logged_geo$spde
+        results$spde = logged_geo$spde
       }
       
-      fit_log <- rbind(logged$log, logged_geo$log)
-      fit_log$reused <- fit_log$model == "ps_geo"
+      fit_log = rbind(logged$log, logged_geo$log)
+      fit_log$reused = fit_log$model == "ps_geo"
     }
     
-    fit_log$tau2_B <- tau2_B
-    rownames(fit_log) <- NULL
-    
-    condition_dir <- file.path(noise_output_dir, paste0("tau2_B_", tau2_B))
+    fit_log$tau2_B = tau2_B
+    rownames(fit_log) = NULL
     
     save_replication(
       data = simulated,
@@ -216,15 +291,15 @@ for (replication in seq_len(n_replications)) {
 
 # Vary preferential sampling strength ----------------------------------------
 
-gamma_output_dir <- file.path(output_dir, "gamma_strength")
+gamma_output_dir = file.path(output_dir, "gamma_strength")
 
-for (replication in seq_len(n_replications)) {
+for (replication in replications) {
   message("Gamma-strength replication ", replication, " of ", n_replications)
   
-  seed <- simulation_seeds[replication]
+  seed = simulation_seeds[replication]
   
   # Reference field and areal observations are shared across gamma values
-  reference <- generate_data(
+  reference = generate_data(
     rho = 0.2,
     gamma = 1,
     I = 100,
@@ -238,7 +313,16 @@ for (replication in seq_len(n_replications)) {
   for (gamma_value in gamma_values) {
     message("  Preferentiality parameter: ", gamma_value)
     
-    simulated <- generate_data(
+    condition_dir = file.path(gamma_output_dir, paste0("gamma_", gamma_value))
+    fit_path = file.path(
+      condition_dir, "fits", sprintf("rep_%03d.rds", replication)
+    )
+    log_path = file.path(
+      condition_dir, "log", sprintf("rep_%03d.rds", replication)
+    )
+    if (file.exists(fit_path) && file.exists(log_path)) next
+    
+    simulated = generate_data(
       rho = 0.2,
       gamma = gamma_value,
       I = 100,
@@ -254,22 +338,22 @@ for (replication in seq_len(n_replications)) {
       isTRUE(all.equal(simulated$areas, reference$areas))
     )
     
-    logged <- fit_models_logged(
+    logged = fit_models_logged(
       data = simulated,
       models = model_names,
       mesh = mesh,
       replication = replication,
       seed = seed,
-      point_process_method = "mesh_dual",
-      areal_method = "vertices",
-      separate_noise = TRUE,
-      prior_gamma = c(1, 10)
+      point_process_method = point_process_method,
+      areal_method = areal_method,
+      separate_noise = separate_noise,
+      prior_gamma = prior_gamma,
+      prior_noise = prior_noise,
+      prior_noise_B = prior_noise_B
     )
     
-    fit_log <- logged$log
-    fit_log$gamma_true <- gamma_value
-    
-    condition_dir <- file.path(gamma_output_dir, paste0("gamma_", gamma_value))
+    fit_log = logged$log
+    fit_log$gamma_true = gamma_value
     
     save_replication(
       data = simulated,

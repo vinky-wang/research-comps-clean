@@ -1,3 +1,128 @@
+# Helper functions ------------------------------------------------------------
+
+safe_median = function(x) {
+  if (all(is.na(x))) return(NA_real_)
+  median(x, na.rm = TRUE)
+}
+
+
+# Extract model diagnostics
+summarise_fit = function(data, logged, model, mesh, A_B, replication,
+                         tau2_B, mesh_name, areal_method, prior_name) {
+  
+  log_row = logged$log[logged$log$model == model, , drop = FALSE]
+  fitted = logged$results$models[[model]]
+  
+  # Initialize diagnostics
+  row = data.frame(
+    replication = replication,
+    seed = 123L + replication - 1L,
+    tau2_B_true = tau2_B,
+    mesh = mesh_name,
+    mesh_vertices = mesh$n,
+    areal_method = areal_method,
+    areal_prior = prior_name,
+    model = model,
+    status = log_row$status,
+    included = log_row$included,
+    n_warnings = log_row$n_warnings,
+    elapsed_sec = log_row$elapsed_sec,
+    error_message = log_row$error_message,
+    point_noise_realized = mean((data$points$value - data$points$true)^2),
+    areal_noise_realized = mean((data$areas$value - data$areas$true)^2),
+    n_gaussian_precisions = NA_integer_,
+    tau2_s_median = NA_real_,
+    tau2_B_median = NA_real_,
+    tau2_B_q025 = NA_real_,
+    tau2_B_q975 = NA_real_,
+    tau2_B_covered = NA,
+    near_zero_tau2_B = NA,
+    gamma_median = NA_real_,
+    prediction_mse = NA_real_,
+    prediction_coverage = NA_real_,
+    areal_truth_rmse = NA_real_,
+    hyperparameter_names = NA_character_
+  )
+  
+  if (is.null(fitted)) return(row)
+  
+  fit = fitted$fit
+  hp = fit$summary.hyperpar
+  
+  row$hyperparameter_names = paste(rownames(hp), collapse = " | ")
+  
+  # Extract observation-error variances
+  gaussian_rows = grep(
+    "^Precision for the Gaussian",
+    rownames(hp),
+    ignore.case = TRUE
+  )
+  
+  row$n_gaussian_precisions = length(gaussian_rows)
+  
+  if (length(gaussian_rows) == 2L &&
+      all(c("0.025quant", "0.5quant", "0.975quant") %in% colnames(hp))) {
+    
+    point_precision = hp[gaussian_rows[1], "0.5quant"]
+    area_precision = hp[gaussian_rows[2], ]
+    
+    row$tau2_s_median = 1 / point_precision
+    row$tau2_B_median = 1 / area_precision[["0.5quant"]]
+    
+    # Reciprocal transformation reverses quantile order
+    row$tau2_B_q025 = 1 / area_precision[["0.975quant"]]
+    row$tau2_B_q975 = 1 / area_precision[["0.025quant"]]
+    
+    row$tau2_B_covered = row$tau2_B_q025 <= tau2_B &&
+      tau2_B <= row$tau2_B_q975
+    
+    row$near_zero_tau2_B = row$tau2_B_median < 0.001
+  }
+  
+  # Extract preferentiality estimate
+  gamma_row = which(rownames(hp) == "Beta for j")
+  
+  if (length(gamma_row) == 1L) {
+    row$gamma_median = hp[gamma_row, "0.5quant"]
+  }
+  
+  # Evaluate spatial predictions
+  pred = fitted$prediction
+  
+  if (!is.null(pred) && nrow(pred) == nrow(data$prediction)) {
+    row$prediction_mse = mean(
+      (pred$mean - data$prediction$true)^2
+    )
+    
+    row$prediction_coverage = mean(
+      pred$q025 <= data$prediction$true &
+        data$prediction$true <= pred$q975
+    )
+  }
+  
+  # Evaluate estimated areal signal
+  spatial_mean = fit$summary.random$i$mean
+  
+  if (!is.null(spatial_mean) &&
+      length(spatial_mean) == ncol(A_B) &&
+      "b0" %in% rownames(fit$summary.fixed)) {
+    
+    areal_estimate = fit$summary.fixed["b0", "mean"] +
+      as.numeric(A_B %*% spatial_mean)
+    
+    row$areal_truth_rmse = sqrt(
+      mean((areal_estimate - data$areas$true)^2)
+    )
+  }
+  
+  return(row)
+}
+
+
+
+
+
+
 # Plotting theme
 
 spatial_theme <- function() {
@@ -23,14 +148,21 @@ spatial_theme <- function() {
 # Colour scale
 spatial_fill_scale <- function(limits) {
   ggplot2::scale_fill_stepsn(
-    colours = rev(RColorBrewer::brewer.pal(5, "RdYlBu")),
+    colours = c(
+      "#2E7ED1", # Blue
+      "#80BCE3", # Light blue
+      "#C6DCE1", # Pale blue
+      "#F7ECA0", # Pale yellow
+      "#FDC94B", # Yellow
+      "#F86022", # Orange
+      "#C21B1F"  # Red
+    ),
     limits = limits,
     oob = scales::squish,
     show.limits = TRUE,
     name = "Value"
   )
 }
-
 
 # Plot raster
 plot_raster_map <- function(data, value_col, title, limits) {

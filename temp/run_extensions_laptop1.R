@@ -19,7 +19,7 @@ noise_models <- c("ps_melding", "melding")
 mesh <- create_mesh()
 
 n_replications <- 100L
-replications <- seq_len(2L)
+replications <- seq_len(50L)
 simulation_seeds <- 123L + seq_len(n_replications) - 1L
 
 output_dir <- file.path("results", "extensions")
