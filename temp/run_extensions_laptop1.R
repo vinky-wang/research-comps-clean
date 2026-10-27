@@ -11,7 +11,7 @@ scenarios = c("spatially_varying", "independent_field")
 tau2_B_values = c(0.025, 0.05, 0.2, 0.4)
 
 # Preferential sampling strength (baseline gamma = 1 omitted)
-gamma_values = c(0, 0.5, 1.5, 2)
+gamma_values = c(0.25, 0.5, 0.75)
 
 # Final fitting specifications from prerun_extensions.R
 model_names = c("ps_melding", "melding", "ps_geo")
