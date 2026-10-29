@@ -1,6 +1,6 @@
 # PSMelding: Simulation Reproduction and Extensions
 
-This repository contains code for reproducing and extending the selected work of [Zhong et al.](https://github.com/ruimanzhong/PSmelding) as part of the PhD research comprehensive examination in the Department of Statistical Sciences at the University of Toronto.
+This repository contains code for reproducing and extending the selected work of [Zhong et al. (2025)](https://github.com/ruimanzhong/PSmelding) as part of the PhD research comprehensive examination in the Department of Statistical Sciences at the University of Toronto.
 
 The study compares three models:
 
@@ -80,4 +80,4 @@ The reproduction uses the authors' mesh, likelihood approximation and prior choi
 
 ## Reference
 
-Zhong et al., *PSmelding* ([paper](https://arxiv.org/abs/2309.03316); [original code](https://github.com/ruimanzhong/PSmelding)).
+Zhong et al. (2025), *PSmelding* ([paper](https://arxiv.org/abs/2309.03316); [original code](https://github.com/ruimanzhong/PSmelding)).
