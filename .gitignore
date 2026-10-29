@@ -67,3 +67,7 @@ __pycache__/
 /scripts/summarize_results.aux
 /scripts/summarize_results.toc
 /scripts/summarize_results.out
+/scripts/report_pdf_header.tex
+
+# Local RStudio project
+/research-comps-clean.Rproj
