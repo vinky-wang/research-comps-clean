@@ -1,0 +1,11 @@
+% Keep long labels, inline paths and figures inside the printable area.
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{seqsplit}
+\usepackage{xurl}
+\usepackage{fvextra}
+\setlength{\emergencystretch}{3em}
+\let\reportoriginaltexttt\texttt
+\renewcommand{\texttt}[1]{\reportoriginaltexttt{\seqsplit{#1}}}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}

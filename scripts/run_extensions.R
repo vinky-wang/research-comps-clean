@@ -7,11 +7,11 @@ source("functions/fit_models.R")
 # Preferential sampling mechanisms (constant-gamma baseline omitted)
 scenarios = c("spatially_varying", "independent_field")
 
-# Areal measurement noise (baseline tau2_B = 0.1 omitted)
-tau2_B_values = c(0.025, 0.05, 0.2, 0.4)
+# Areal measurement noise (including baseline tau2_B = 0.1)
+tau2_B_values = c(0.025, 0.05, 0.1, 0.2, 0.4)
 
-# Preferential sampling strength (baseline gamma = 1 omitted)
-gamma_values = c(0, 0.5, 1.5, 2)
+# Preferential sampling strength (including baseline gamma = 1)
+gamma_values = c(0, 0.5, 1, 1.5, 2)
 
 # Final fitting specifications from prerun_extensions.R
 model_names = c("ps_melding", "melding", "ps_geo")
@@ -29,7 +29,7 @@ n_replications = 100L
 replications = seq_len(n_replications)
 simulation_seeds = 123L + seq_len(n_replications) - 1L
 
-output_dir = file.path("results", "extensions_final")
+output_dir = file.path("results", "extensions")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 

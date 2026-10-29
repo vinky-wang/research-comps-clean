@@ -58,3 +58,12 @@ __pycache__/
 
 # Compact input/reference record used by check_laptop.R --compare
 !/production_checks/laptop_1_check/laptop_check.rds
+
+# Personal simulation summary report
+/scripts/summarize_results.Rmd
+/scripts/summarize_results.pdf
+/scripts/summarize_results.html
+/scripts/summarize_results.tex
+/scripts/summarize_results.aux
+/scripts/summarize_results.toc
+/scripts/summarize_results.out
